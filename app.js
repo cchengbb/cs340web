@@ -44,6 +44,15 @@ app.get('/adopters', function(req, res)
         })  
     });
 
+app.get('/dogs', function(req, res) 
+    {
+        let query1 = "SELECT  * FROM dogs;";
+
+        db.pool.query(query1, function(error, rows, fileds){
+            
+            res.render('dogs', {data: rows});
+        })  
+    });
 app.post('/add-adopter-ajax', function(req, res)
 {
     // Capture the incoming data and parse it back to a JS object

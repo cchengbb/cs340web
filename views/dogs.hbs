@@ -1,0 +1,63 @@
+<!-- dogs.hbs -->
+<h1>The server is running!</h1>
+<p>If you see this text, the server for managing dogs is <strong>definitely</strong> working!</p>
+
+<!-- Create a table to display dogs -->
+<table id="dog-table">
+    <!-- Header section -->
+    <thead>
+        <!-- For just the first row, we print each key of the row object as a header 
+        so we know what each column means when the page renders -->
+        <tr>
+            {{#each dogs.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <!-- Body section -->
+    <tbody>
+        <!-- For each row, print the dogID, dogName, breed, healthStatus, sex, dateOfBirth, adopterID in order -->
+        {{#each dogs}}
+        <tr>
+            <td>{{this.dogID}}</td>
+            <td>{{this.dogName}}</td>
+            <td>{{this.breed}}</td>
+            <td>{{this.healthStatus}}</td>
+            <td>{{this.sex}}</td>
+            <td>{{this.dateOfBirth}}</td>
+            <td>{{this.adopterID}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- Form to add a record to the table using AJAX -->
+<h2>Adding Dog Data with AJAX</h2>
+<p>To add a new dog, please enter their information below and click 'Submit'!</p>
+<form id="add-dog-form-ajax">
+    <label for="input-dogName">Dog Name: </label>
+    <input type="text" name="input-dogName" id="input-dogName">
+
+    <label for="input-breed">Breed: </label>
+    <input type="text" name="input-breed" id="input-breed">
+
+    <label for="input-healthStatus">Health Status: </label>
+    <input type="text" name="input-healthStatus" id="input-healthStatus">
+
+    <label for="input-sex">Sex: </label>
+    <input type="text" name="input-sex" id="input-sex">
+
+    <label for="input-dateOfBirth">Date of Birth: </label>
+    <input type="date" name="input-dateOfBirth" id="input-dateOfBirth">
+
+    <label for="input-adopterID">Adopter ID (optional): </label>
+    <input type="number" name="input-adopterID" id="input-adopterID">
+
+    <input type="submit">
+</form>
+
+<!-- Embed our JavaScript to handle the DOM manipulation and AJAX request -->
+<script src="./js/add_dog.js"></script>
