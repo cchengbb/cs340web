@@ -54,9 +54,25 @@
     <input type="date" name="input-dateOfBirth" id="input-dateOfBirth">
 
     <label for="input-adopterID">Adopter ID (optional): </label>
-    <input type="number" name="input-adopterID" id="input-adopterID">
+    <!--input type="number" name="input-adopterID" id="input-adopterID"-->
+    <select name="input-adopterID" id = "input-adopterID-ajax">
+        <option value="">Select an Adopter</option>
+        {{#each adopters}}
+        <option value="{{this.id}}">{{this.firstName}} {{this.lastName}}</option>
+        {{/each}}
+    </select>
 
     <input type="submit">
+</form>
+
+<h2>Search Using an AJAX Form</h2>
+<p>Search by dog name using the field below. Partial names are OK too!</p>
+<form id="search-dog-ajax" onsubmit="searchDogByName(event)">
+    <label for="input-dname">Search by Dog Name: </label>
+    <input type="text" name="dname" id="input-dname-ajax-search">
+    
+    <input type="submit" value="Search">
+    <button type="button" onclick="resetSearch()">Reset</button>
 </form>
 
 <!-- Embed our JavaScript to handle the DOM manipulation and AJAX request -->

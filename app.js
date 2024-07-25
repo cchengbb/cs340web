@@ -50,20 +50,29 @@ app.get('/adopters', function(req, res)
 // Dogs Route
 app.get('/dogs', (req, res) => {
     let query1 = "SELECT * FROM Dogs;";
+    let query2 = "SELECT * FROM Adopters;";
 
-    db.pool.query(query1, (error, rows, fileds) => {
+    db.pool.query(query1, (error, dogs, fileds) => {
         if (error) {
             console.error('SQL error:', error);
             res.status(500).send('Database error occurred');
-        } else {
+        } 
             // Format each date of birth to 'YYYY-MM-DD' before rendering
-            rows.forEach(row => {
-                if (row.dateOfBirth) {
-                    row.dateOfBirth = formatDate(row.dateOfBirth);
+            dogs.forEach(dog => {
+                if (dog.dateOfBirth) {
+                    dog.dateOfBirth = formatDate(dog.dateOfBirth);
                 }
             });
-            res.render('dogs', { data: rows });
-        }
+
+            //Execute the second query to get adopters
+            db.pool.query(query2, (error, adopters, fields) =>{
+                if (error) {
+                    console.error('SQL error:', error);
+                    res.status(500).send('Database error occurred');
+                }
+                // Render the page with both sets of data
+                res.render('dogs', { data: dogs, adopters: adopters });
+        });
     });
 });
 
