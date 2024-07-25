@@ -3,7 +3,7 @@
 <p>If you see this text, the server is <strong>definitely</strong> working!</p>
 
 {{!--Create a table--}}
-<table>
+<table id="adopter-table">
     {{!--header section--}}
     <thead>
         {{!--for just the first row, we printe each key of the row object as a header 
@@ -32,3 +32,25 @@
         {{/each}}
     </tbody>
 </table>
+
+{{!--From to add a record to the table using AJAX--}}
+<h2>Adding Data with AJAX</h2>
+<P>To add a new adopter, please eneter their information below and click 'Submit'!</P>
+<form id="add-adopter-form-ajax">
+    <lable for="input-firstName">First Name: </lable>
+    <input type="text" name="'input-firstName" id="input-firstName">
+
+    <lable for="input-lastName">Last Name: </lable>
+    <input type="text" name="input-lastName" id="input-lastName">
+
+    <lable for="input-adopterEmail">Adopter Email: </lable>
+    <input type="text" name="input-adopterEmail" id="input-adopterEmail">
+
+    <lable for="input-phoneNumber">Phone Number: </lable>
+    <input type="number" name="input-phoneNumber" id="input-phoneNUMBER">
+
+    <input type="submit">
+</form>
+
+{{!--Embed our javascript to handle the DOM  manipulation and AJAX request--}}
+<script src="./js/add_adopter.js"></script>

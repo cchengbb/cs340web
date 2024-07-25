@@ -5,6 +5,10 @@
 // Express
 var express = require('express');
 var app = express();
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use(express.static('public'))
+
 PORT = 9613;
 
 // Database
