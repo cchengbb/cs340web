@@ -21,17 +21,20 @@ app.engine('.hbs', engine({extname: ".hbs"}));  // Create an instance of the han
 app.set('view engine', '.hbs');                 // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
 
 app.use(express.static('public'));
+
+// Helper function to format dates
+function formatDate(date) {
+    return date.toISOString().substring(0, 10);  // Convert date object to YYYY-MM-DD format
+}
+
 /*
     ROUTES
 */
 app.get('/', function(req, res)
     {
-        let query1 = "SELECT  * FROM Adopters;";
-
-        db.pool.query(query1, function(error, rows, fileds){
-            
-            res.render('index', {data: rows});
-        })  
+    
+            res.render('index');
+      
     });
 
 app.get('/adopters', function(req, res) 
@@ -44,15 +47,26 @@ app.get('/adopters', function(req, res)
         })  
     });
 
-app.get('/dogs', function(req, res) 
-    {
-        let query1 = "SELECT  * FROM dogs;";
+// Dogs Route
+app.get('/dogs', (req, res) => {
+    let query1 = "SELECT * FROM Dogs;";
 
-        db.pool.query(query1, function(error, rows, fileds){
-            
-            res.render('dogs', {data: rows});
-        })  
+    db.pool.query(query1, (error, rows, fileds) => {
+        if (error) {
+            console.error('SQL error:', error);
+            res.status(500).send('Database error occurred');
+        } else {
+            // Format each date of birth to 'YYYY-MM-DD' before rendering
+            rows.forEach(row => {
+                if (row.dateOfBirth) {
+                    row.dateOfBirth = formatDate(row.dateOfBirth);
+                }
+            });
+            res.render('dogs', { data: rows });
+        }
     });
+});
+
 app.post('/add-adopter-ajax', function(req, res)
 {
     // Capture the incoming data and parse it back to a JS object
@@ -89,6 +103,12 @@ app.post('/add-adopter-ajax', function(req, res)
                 // If all went well, send the results of the query back.
                 else
                 {
+                     // Format dates before sending response
+                     rows.forEach(row => {
+                        if (row.dateOfBirth) {
+                            row.dateOfBirth = formatDate(row.dateOfBirth);
+                        }
+                    });
                     res.send(rows);
                 }
             });
@@ -96,6 +116,36 @@ app.post('/add-adopter-ajax', function(req, res)
     });    
 });
 
+// POST route to add a new dog
+app.post('/add-dog-ajax', function(req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Ensure strings and nullable values are handled correctly
+    let adopterID = data.adopterID ? `${data.adopterID}` : null;
+
+    // Create the query and run it on the database
+    let query4 = `INSERT INTO Dogs(dogName, breed, healthStatus, sex, dateOfBirth, adopterID) 
+                  VALUES (?, ?, ?, ?, ?, ?)`;
+    db.pool.query(query4, [data.dogName, data.breed, data.healthStatus, data.sex, data.dateOfBirth, adopterID], function(error, result) {
+        if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            // If there was no error, perform a SELECT * on Dogs to get the updated list
+            let query5 = `SELECT * FROM Dogs;`;
+            db.pool.query(query5, function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            });
+        }
+    });
+});
 
 /*
     LISTENER

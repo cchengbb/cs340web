@@ -9,7 +9,7 @@
         <!-- For just the first row, we print each key of the row object as a header 
         so we know what each column means when the page renders -->
         <tr>
-            {{#each dogs.[0]}}
+            {{#each data.[0]}}
             <th>
                 {{@key}}
             </th>
@@ -20,7 +20,7 @@
     <!-- Body section -->
     <tbody>
         <!-- For each row, print the dogID, dogName, breed, healthStatus, sex, dateOfBirth, adopterID in order -->
-        {{#each dogs}}
+        {{#each data}}
         <tr>
             <td>{{this.dogID}}</td>
             <td>{{this.dogName}}</td>
