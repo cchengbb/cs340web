@@ -16,8 +16,8 @@ addAdopterForm.addEventListener("submit", function(e){
     // Get the values from the form fields
     let firstNameValue = inputFirstName.value;
     let lastNameValue = inputLastName.value;
-    let adopterEmailValue = inputAdopterEmail;
-    let phoneNumberValue = inputPhoneNumber;
+    let adopterEmailValue = inputAdopterEmail.value;
+    let phoneNumberValue = inputPhoneNumber.value;
 
     // Put our data we want to send in a javascript object
     let data ={
@@ -91,5 +91,5 @@ addRowToTable = (data) => {
 
     // Add the row to the table
     currentTable.appendChild(row);
-
+    location.reload();
 }

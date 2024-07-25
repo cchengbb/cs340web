@@ -18,8 +18,8 @@ CREATE TABLE Adopters (
     adopterID INT(11) AUTO_INCREMENT,
     firstName VARCHAR(145),
     lastName VARCHAR(145),
-    adopterEmail VARCHAR(145),
-    phoneNumber VARCHAR(15),
+    adopterEmail VARCHAR(145) DEFAULT NULL,
+    phoneNumber VARCHAR(20) DEFAULT NULL,
     PRIMARY KEY (adopterID)
 );
 
@@ -80,8 +80,8 @@ VALUES
 ('Shelly', 'Williamson', 'swilliamson@toktokmail.com', '(162) 181-0503'),
 ('Kathleen', 'Randall', 'iamkathleen@networkofemails.org', '(988) 431-8038'),
 ('Claude', 'Herman', 'hermanclaude@example.com', '(738) 630-6257'),
-('Adam', 'Payne', 'nopaynenogain@hotrod.net', '(922) 377-1535)'),
-('Alyson', 'Montgomery', 'montg.alyson5@totallyrealdomain.com', '(726) 296-1782)');
+('Adam', 'Payne', 'nopaynenogain@hotrod.net', '(922) 377-1535'),
+('Alyson', 'Montgomery', 'montg.alyson5@totallyrealdomain.com', '(726) 296-1782');
 
 -- Insert 5 rows data to the table Dogs
 INSERT INTO Dogs (adopterID, dogName, breed, sex, dateOfBirth, healthStatus)
