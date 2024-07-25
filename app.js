@@ -47,31 +47,41 @@ app.get('/adopters', function(req, res)
         })  
     });
 
-// Dogs Route
 app.get('/dogs', (req, res) => {
-    let query1 = "SELECT * FROM Dogs;";
-    let query2 = "SELECT * FROM Adopters;";
+    // Declare the query based on whether a search term is provided
+    let query1;
+    if (req.query.name) {
+        // Perform a search if 'name' query string is provided
+        query1 = `SELECT * FROM Dogs WHERE name LIKE ?`;
+    } else {
+        // Default to selecting all dogs
+        query1 = "SELECT * FROM Dogs;";
+    }
 
-    db.pool.query(query1, (error, dogs, fileds) => {
+    // Execute the first query to get dogs
+    db.pool.query(query1, [`%${req.query.name}%`], (error, dogs, fields) => {
         if (error) {
             console.error('SQL error:', error);
-            res.status(500).send('Database error occurred');
-        } 
-            // Format each date of birth to 'YYYY-MM-DD' before rendering
-            dogs.forEach(dog => {
-                if (dog.dateOfBirth) {
-                    dog.dateOfBirth = formatDate(dog.dateOfBirth);
-                }
-            });
+            return res.status(500).send('Database error occurred');
+        }
 
-            //Execute the second query to get adopters
-            db.pool.query(query2, (error, adopters, fields) =>{
-                if (error) {
-                    console.error('SQL error:', error);
-                    res.status(500).send('Database error occurred');
-                }
-                // Render the page with both sets of data
-                res.render('dogs', { data: dogs, adopters: adopters });
+        // Format each date of birth to 'YYYY-MM-DD' before rendering
+        dogs.forEach(dog => {
+            if (dog.dateOfBirth) {
+                dog.dateOfBirth = formatDate(dog.dateOfBirth);
+            }
+        });
+
+        // Execute the second query to get adopters
+        let query2 = "SELECT * FROM Adopters;";
+        db.pool.query(query2, (error, adopters, fields) => {
+            if (error) {
+                console.error('SQL error:', error);
+                return res.status(500).send('Database error occurred');
+            }
+
+            // Render the page with both sets of data
+            res.render('dogs', { dogs: dogs, adopters: adopters });
         });
     });
 });
