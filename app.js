@@ -34,6 +34,16 @@ app.get('/', function(req, res)
         })  
     });
 
+app.get('/adopters', function(req, res) 
+    {
+        let query1 = "SELECT  * FROM Adopters;";
+
+        db.pool.query(query1, function(error, rows, fileds){
+            
+            res.render('adopters', {data: rows});
+        })  
+    });
+
 app.post('/add-adopter-ajax', function(req, res)
 {
     // Capture the incoming data and parse it back to a JS object
@@ -76,6 +86,8 @@ app.post('/add-adopter-ajax', function(req, res)
         }
     });    
 });
+
+
 /*
     LISTENER
 */
