@@ -62,7 +62,7 @@ addDogForm.addEventListener("submit", function(e){
 })
 
 // Creates a single row from an Object representing a single record from Dogs
-function addRowToDogTable(data) {
+addRowToDogTable = (data) =>{
     // Get a reference to the current table on the page and clear it out.
     let currentTable = document.getElementById("dog-table");
 
@@ -83,6 +83,8 @@ function addRowToDogTable(data) {
     let dateOfBirthCell = document.createElement("TD");
     let adopterIDCell = document.createElement("TD");
 
+    let deleteCell = document.createElement("TD");
+
     // Fill the cells with correct data
     idCell.innerText = newRow.dogID;
     dogNameCell.innerText = newRow.dogName;
@@ -90,7 +92,13 @@ function addRowToDogTable(data) {
     healthStatusCell.innerText = newRow.healthStatus;
     sexCell.innerText = newRow.sex;
     dateOfBirthCell.innerText = newRow.dateOfBirth;
-    adopterIDCell.innerText = newRow.adopterID || 'None';
+    adopterIDCell.innerText = newRow.adopterID;
+
+    deleteCell = document.createElement("button");
+    deleteCell.innerHTML = "Delete";
+    deleteCell.onclick = function(){
+        deleteDog(newRow.id);
+    };
 
     // Add the cells to the row
     row.appendChild(idCell);
@@ -100,8 +108,23 @@ function addRowToDogTable(data) {
     row.appendChild(sexCell);
     row.appendChild(dateOfBirthCell);
     row.appendChild(adopterIDCell);
+    row.appendChild(deleteCell);
+
+    // Add a custom row attribute so the deleteRow function can find a newly added row
+    row.setAttribute('data-value', newRow.id);
 
     // Add the row to the table
     currentTable.appendChild(row);
     location.reload();
+
+     // Start of new Step 8 code for adding new data to the dropdown menu for updating people
+    
+    // Find drop down menu, create a new option, fill data in the option (Dog name, adopterID),
+    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
+    let selectMenu = document.getElementById("mySelect");
+    let option = document.createElement("option");
+    option.text = newRow.dogName;
+    option.value = newRow.adopterID;
+    selectMenu.add(option);
+    // End of new step 8 code.
 }

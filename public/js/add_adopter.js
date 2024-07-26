@@ -89,13 +89,14 @@ addRowToTable = (data) => {
     deleteCell.onclick = function(){
         deleteAdopter(newRow.id);
     };
-    
+
     // Add the cells to the row
     row.appendChild(idCell);
     row.appendChild(firstNameCell);
     row.appendChild(lastNameCell);
     row.appendChild(adopterEmailCell);
     row.appendChild(phoneNumberCell);
+    row.appendChild(deleteCell);
     
     // Add a row attribute so the deleteRow function can find a newly added row
     row.setAttribute('data-value', newRow.id);

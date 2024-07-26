@@ -216,6 +216,40 @@ app.delete('/delete-adopter-ajax', function(req, res, next) {
     });
 });
 
+app.put('/put-dog-ajax', function(req,res,next){
+    let data = req.body;
+  
+    let adopter = parseInt(data.adopterID);
+    let dogName = parseInt(data.dogName);
+  
+    let updatedogAdopter = `UPDATE Dogs SET adopterID = ? WHERE Dogs.id = ?`;
+    let adopterIDS = `SELECT * FROM Adopters WHERE id = ?`
+  
+          // Run the 1st query
+          db.pool.query(updatedogAdopter, [adopter, dogName], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              // If there was no error, we run our second query and return that data so we can use it to update the people's
+              // table on the front-end
+              else
+              {
+                  // Run the second query
+                  db.pool.query(adopterIDS, [adopter], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.send(rows);
+                      }
+                  })
+              }
+  })});
 /*
     LISTENER
 */

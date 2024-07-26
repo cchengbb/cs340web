@@ -21,7 +21,7 @@
     <tbody>
         <!-- For each row, print the dogID, dogName, breed, healthStatus, sex, dateOfBirth, adopterID in order -->
         {{#each data}}
-        <tr>
+        <tr data-vaule={{this.dogID}}>
             <td>{{this.dogID}}</td>
             <td>{{this.dogName}}</td>
             <td>{{this.breed}}</td>
@@ -68,13 +68,37 @@
     <select name="input-adopterID" id="input-adopterID-ajax">
         <option value="">Select an Adopter</option>
         {{#each adopters}}
-        <option value="{{this.id}}">{{this.firstName}} {{this.lastName}}</option>
+        <option value="{{this.adopterID}}">{{this.firstName}} {{this.lastName}}</option>
         {{/each}}
     </select>
 
     <input type="submit">
 </form>
-
-
 <!-- Embed our JavaScript to handle the DOM manipulation and AJAX request -->
 <script src="./js/add_dog.js"></script>
+
+<h2>Updating A dog's adopter Form</h2>
+<p>To update a specific user's adopter select their name from the drop-down menu on the left and their desired adopter from the drop down menu on the right</p>
+<form id="update-dog-form-ajax">
+
+    <label for="input-name">Dog Name: </label>
+    <select name="input-name" id="mySelect">
+        <option value="test">Select one Dog </option>
+        {{#each data}}
+        <option value="{{this.dogID}}">{{this.dogName}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-adopterID">Adopter full name: </label>
+    <select name="input-adopterID" id="input-adopterID-update">
+        <option>Select an adopter</option>
+        {{#each adopters}}
+        <option value="{{this.adopterID}}">{{this.firstName}} {{this.lastName}}</option>
+        {{/each}}
+    </select>
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_dog.js"></script>
+
