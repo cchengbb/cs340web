@@ -47,24 +47,24 @@ app.get('/adopters', function(req, res)
         })  
     });
 
+// Dogs Route
 app.get('/dogs', (req, res) => {
-    // Declare the query based on whether a search term is provided
     let query1;
-    if (req.query.name) {
-        // Perform a search if 'name' query string is provided
-        query1 = `SELECT * FROM Dogs WHERE name LIKE ?`;
+    // Determine if there is a search query for dog names
+    if (req.query.dogName) {
+        query1 = `SELECT * FROM Dogs WHERE dogName LIKE '%${req.query.dogName}%'`;
     } else {
-        // Default to selecting all dogs
         query1 = "SELECT * FROM Dogs;";
     }
 
-    // Execute the first query to get dogs
-    db.pool.query(query1, [`%${req.query.name}%`], (error, dogs, fields) => {
+    // Execute the query for dogs
+    db.pool.query(query1, (error, dogs, fields) => {
         if (error) {
             console.error('SQL error:', error);
-            return res.status(500).send('Database error occurred');
+            res.status(500).send('Database error occurred');
+            return;
         }
-
+        
         // Format each date of birth to 'YYYY-MM-DD' before rendering
         dogs.forEach(dog => {
             if (dog.dateOfBirth) {
@@ -72,19 +72,35 @@ app.get('/dogs', (req, res) => {
             }
         });
 
-        // Execute the second query to get adopters
+        // Query to get all adopters
         let query2 = "SELECT * FROM Adopters;";
         db.pool.query(query2, (error, adopters, fields) => {
             if (error) {
                 console.error('SQL error:', error);
-                return res.status(500).send('Database error occurred');
+                res.status(500).send('Database error occurred');
+                return;
             }
 
-            // Render the page with both sets of data
-            res.render('dogs', { dogs: dogs, adopters: adopters });
+            // Create a map of adopter IDs to adopter names
+            let adopterMap = {};
+            adopters.forEach(adopter => {
+                adopterMap[adopter.adopterID] = adopter.firstName + ' ' + adopter.lastName;
+            });
+
+            // Map adopter names to each dog's adopterID
+            dogs = dogs.map(dog => {
+                if (dog.adopterID && adopterMap[dog.adopterID]) {
+                    return {...dog, adopterID: adopterMap[dog.adopterID]};
+                }
+                return dog;
+            });
+
+            // Render the dogs page with mapped data
+            res.render('dogs', {data: dogs, adopters: adopters});
         });
     });
 });
+
 
 app.post('/add-adopter-ajax', function(req, res)
 {
@@ -140,9 +156,11 @@ app.post('/add-dog-ajax', function(req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
-    // Ensure strings and nullable values are handled correctly
-    let adopterID = data.adopterID ? `${data.adopterID}` : null;
-
+    let adopterID = parseInt(data.adopterID);
+    if (isNaN(adopterID))
+    {
+        adopterID = 'NULL'
+    }
     // Create the query and run it on the database
     let query4 = `INSERT INTO Dogs(dogName, breed, healthStatus, sex, dateOfBirth, adopterID) 
                   VALUES (?, ?, ?, ?, ?, ?)`;
@@ -162,6 +180,33 @@ app.post('/add-dog-ajax', function(req, res) {
                     res.send(rows);
                 }
             });
+        }
+    });
+});
+
+app.delete('/delete-adopter-ajax', function(req, res, next) {
+    let data = req.body;
+    let adopterID = parseInt(data.adopterID);
+
+    if (isNaN(adopterID)) {
+        // Send an error response if the adopterID is not a number
+        return res.status(400).send("Invalid adopter ID");
+    }
+
+    let deleteAdopterQuery = `DELETE FROM Adopters WHERE adopterID = ?`;
+
+    // Execute the query to delete the adopter
+    db.pool.query(deleteAdopterQuery, [adopterID], function(error, result) {
+        if (error) {
+            // Log the error and send a 500 status code if there's a database error
+            console.error('SQL error:', error);
+            res.status(500).send('Failed to delete adopter due to database error');
+        } else if (result.affectedRows === 0) {
+            // No rows affected, meaning no adopter was found with that ID
+            res.status(404).send('No adopter found with that ID');
+        } else {
+            // Successfully deleted the adopter
+            res.sendStatus(204); // 204 No Content
         }
     });
 });

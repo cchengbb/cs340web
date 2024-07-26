@@ -33,29 +33,39 @@
         {{/each}}
     </tbody>
 </table>
+{{!-- Form to search by the dog name--}}
+<h2>Search Using a Standard HTML Form</h2>
+<p>Search by dog name using the field below. Partial names are OK too!</p>
+<form id="search-dog-html" method="GET" action="/dogs">
+    <label for="input-dogName">Search by Dog Name: </label>
+    <input type="text" name="dogName" id="input-dogName-html-search">
+    
+    <input type="submit" value="Search">
+    <a href="/dogs"><button>Reset</button></a>
+</form>
 
 <!-- Form to add a record to the table using AJAX -->
 <h2>Adding Dog Data with AJAX</h2>
 <p>To add a new dog, please enter their information below and click 'Submit'!</p>
 <form id="add-dog-form-ajax">
     <label for="input-dogName">Dog Name: </label>
-    <input type="text" name="input-dogName" id="input-dogName">
+    <input type="text" name="input-dogName" id="input-dogName-ajax">
 
     <label for="input-breed">Breed: </label>
-    <input type="text" name="input-breed" id="input-breed">
+    <input type="text" name="input-breed" id="input-breed-ajax">
 
     <label for="input-healthStatus">Health Status: </label>
-    <input type="text" name="input-healthStatus" id="input-healthStatus">
+    <input type="text" name="input-healthStatus" id="input-healthStatus-ajax">
 
     <label for="input-sex">Sex: </label>
-    <input type="text" name="input-sex" id="input-sex">
+    <input type="text" name="input-sex" id="input-sex-ajax">
 
     <label for="input-dateOfBirth">Date of Birth: </label>
-    <input type="date" name="input-dateOfBirth" id="input-dateOfBirth">
+    <input type="date" name="input-dateOfBirth" id="input-dateOfBirth-ajax">
 
     <label for="input-adopterID">Adopter ID (optional): </label>
     <!--input type="number" name="input-adopterID" id="input-adopterID"-->
-    <select name="input-adopterID" id = "input-adopterID-ajax">
+    <select name="input-adopterID" id="input-adopterID-ajax">
         <option value="">Select an Adopter</option>
         {{#each adopters}}
         <option value="{{this.id}}">{{this.firstName}} {{this.lastName}}</option>
@@ -65,15 +75,6 @@
     <input type="submit">
 </form>
 
-<h2>Search Using a Standard HTML Form</h2>
-<p>Search by dog name using the field below. Partial names are OK too!</p>
-<form id="search-dog-html" method="GET" action="/dogs">
-    <label for="input-dname">Search by Dog Name: </label>
-    <input type="text" name="dogName" id="input-dogName-html-search">
-    
-    <input type="submit" value="Search">
-    <a href="/dogs"><button>Reset</button></a>
-</form>
 
 <!-- Embed our JavaScript to handle the DOM manipulation and AJAX request -->
 <script src="./js/add_dog.js"></script>

@@ -8,10 +8,10 @@ addAdopterForm.addEventListener("submit", function(e){
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputFirstName = document.getElementById("input-firstName");
-    let inputLastName = document.getElementById("input-lastName");
-    let inputAdopterEmail = document.getElementById("input-adopterEmail");
-    let inputPhoneNumber  = document.getElementById("input-phoneNumber");
+    let inputFirstName = document.getElementById("input-firstName-ajax");
+    let inputLastName = document.getElementById("input-lastName-ajax");
+    let inputAdopterEmail = document.getElementById("input-adopterEmail-ajax");
+    let inputPhoneNumber  = document.getElementById("input-phoneNumber-ajax");
 
     // Get the values from the form fields
     let firstNameValue = inputFirstName.value;
@@ -75,6 +75,8 @@ addRowToTable = (data) => {
     let adopterEmailCell = document.createElement("TD");
     let phoneNumberCell = document.createElement("TD");
 
+    let deleteCell = document.createElement("TD");
+
     // Fill the cells with correct data
     idCell.innerText = newRow.id;
     firstNameCell.innerText = newRow.firstName;
@@ -82,12 +84,21 @@ addRowToTable = (data) => {
     adopterEmailCell.innerText = newRow.adopterEmail;
     phoneNumberCell.innerText = newRow.phoneNumber;
 
+    deleteCell = document.createElement("button");
+    deleteCell.innerHTML = "Delete";
+    deleteCell.onclick = function(){
+        deleteAdopter(newRow.id);
+    };
+    
     // Add the cells to the row
     row.appendChild(idCell);
     row.appendChild(firstNameCell);
     row.appendChild(lastNameCell);
     row.appendChild(adopterEmailCell);
     row.appendChild(phoneNumberCell);
+    
+    // Add a row attribute so the deleteRow function can find a newly added row
+    row.setAttribute('data-value', newRow.id);
 
     // Add the row to the table
     currentTable.appendChild(row);

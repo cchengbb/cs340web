@@ -8,12 +8,12 @@ addDogForm.addEventListener("submit", function(e){
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputDogName = document.getElementById("input-dogName");
-    let inputBreed = document.getElementById("input-breed");
-    let inputHealthStatus = document.getElementById("input-healthStatus");
-    let inputSex = document.getElementById("input-sex");
-    let inputDateOfBirth = document.getElementById("input-dateOfBirth");
-    let inputAdopterID = document.getElementById("input-adopterID");
+    let inputDogName = document.getElementById("input-dogName-ajax");
+    let inputBreed = document.getElementById("input-breed-ajax");
+    let inputHealthStatus = document.getElementById("input-healthStatus-ajax");
+    let inputSex = document.getElementById("input-sex-ajax");
+    let inputDateOfBirth = document.getElementById("input-dateOfBirth-ajax");
+    let inputAdopterID = document.getElementById("input-adopterID-ajax");
 
     // Get the values from the form fields
     let dogNameValue = inputDogName.value;
@@ -21,7 +21,7 @@ addDogForm.addEventListener("submit", function(e){
     let healthStatusValue = inputHealthStatus.value;
     let sexValue = inputSex.value;
     let dateOfBirthValue = inputDateOfBirth.value;
-    let adopterIDValue = inputAdopterID.value;  // Nullable if no adopter is selected
+    let adopterIDValue = inputAdopterID.value;  
 
     // Put our data we want to send in a JavaScript object
     let data = {
