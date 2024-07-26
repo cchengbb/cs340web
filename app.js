@@ -39,7 +39,17 @@ app.get('/', function(req, res)
 
 app.get('/adopters', function(req, res) 
     {
-        let query1 = "SELECT  * FROM Adopters;";
+        let query1;
+
+        // If there is no query string, we just perfom a basic SELECT
+        if(req.query.firstName === undefined){
+            query1 = "SELECT * FROM Adopters;";
+        }
+
+        // If there is a query string, we assume this is a search, and return desired restul
+        else{
+            query1 = `SELECT * FROM Adopters WHERE firstName LIKE "${req.query.firstName}%"`
+        }
 
         db.pool.query(query1, function(error, rows, fileds){
             
@@ -186,17 +196,12 @@ app.post('/add-dog-ajax', function(req, res) {
 
 app.delete('/delete-adopter-ajax', function(req, res, next) {
     let data = req.body;
-    let adopterID = parseInt(data.adopterID);
-
-    if (isNaN(adopterID)) {
-        // Send an error response if the adopterID is not a number
-        return res.status(400).send("Invalid adopter ID");
-    }
+    console.log('Deleting adopter with ID:', data.adopterID);
 
     let deleteAdopterQuery = `DELETE FROM Adopters WHERE adopterID = ?`;
 
     // Execute the query to delete the adopter
-    db.pool.query(deleteAdopterQuery, [adopterID], function(error, result) {
+    db.pool.query(deleteAdopterQuery, [data.adopterID], function(error, result) {
         if (error) {
             // Log the error and send a 500 status code if there's a database error
             console.error('SQL error:', error);

@@ -1,7 +1,7 @@
 function deleteAdopter(adopterID) {
     // Put our data we want to send in a javascript object
     let data = {
-        id: adopterID
+        adopterID: adopterID
     };
 
     // Setup our AJAX request
@@ -15,7 +15,9 @@ function deleteAdopter(adopterID) {
 
             // Add the new data to the table
             deleteRow(adopterID);
-
+            
+            // Reload the page to reflect changes
+            window.location.reload();
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.")

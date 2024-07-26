@@ -23,7 +23,7 @@
         {{!-- For each row, print the adopterID, firstName, lastName, adopterEmail,
         phoneNumber in order--}}
         {{#each data}}
-        <tr data-vaule="{{this.adopterID}}">
+        <tr data-vaule={{this.adopterID}}>
             <td>{{this.adopterID}}</td>
             <td>{{this.firstName}}</td>
             <td>{{this.lastName}}</td>
@@ -35,6 +35,17 @@
     </tbody>
 </table>
 <script src="./js/delete_adopter.js"></script>
+
+{{!-- Form to search by the dog name--}}
+<h2>Search Using a Standard HTML Form</h2>
+<p>Search by adotper's last name using the field below. Partial names are OK too!</p>
+<form id="search-adopter-html" method="GET" action="/adopters">
+    <label for="input-dogName">Search by Dog Name: </label>
+    <input type="text" name="firstName" id="input-firstName-html-search">
+    
+    <input type="submit" value="Search">
+    <a href="/adopters"><button>Reset</button></a>
+</form>
 
 {{!--From to add a record to the table using AJAX--}}
 <h2>Adding Data with AJAX</h2>
