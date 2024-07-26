@@ -11,13 +11,10 @@ updateDogForm.addEventListener("submit", function (e) {
     // Get form fields we need to get data from
     let inputDogName = document.getElementById("update-dog");
     let inputAdopterID = document.getElementById("update-adopterID");
-    let updateBreed = document.getElementById("update-breed");
-    let updateHealthStatus = document.getElementById("update-healthStatus");
+
     // Get the values from the form fields
     let dogNameValue = inputDogName.value;
     let adopterIDValue = inputAdopterID.value;
-    let breedValue = updateBreed;
-    let healthStatusValue = updateHealthStatus;
     
     // currently the database table for bsg_people does not allow updating values to NULL
     // so we must abort if being bassed NULL for homeworld
@@ -31,8 +28,6 @@ updateDogForm.addEventListener("submit", function (e) {
     // Put our data we want to send in a javascript object
     let data = {
         dogName: dogNameValue,
-        breed: breedValue,
-        healthStatus: healthStatusValue,
         adopterID: adopterIDValue,
     }
     
