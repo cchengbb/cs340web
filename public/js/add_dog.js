@@ -22,7 +22,12 @@ addDogForm.addEventListener("submit", function(e){
     let sexValue = inputSex.value;
     let dateOfBirthValue = inputDateOfBirth.value;
     let adopterIDValue = inputAdopterID.value;  
-
+    
+    // Ensure adopterID is not empty; if empty, set to null
+    if (adopterIDValue.trim() === '') {
+        adopterIDValue = null;
+    }
+    
     // Put our data we want to send in a JavaScript object
     let data = {
         dogName: dogNameValue,
@@ -92,7 +97,7 @@ addRowToDogTable = (data) =>{
     healthStatusCell.innerText = newRow.healthStatus;
     sexCell.innerText = newRow.sex;
     dateOfBirthCell.innerText = newRow.dateOfBirth;
-    adopterIDCell.innerText = newRow.adopterID;
+    adopterIDCell.innerText = newRow.adopterID || NULL;
 
     deleteCell = document.createElement("button");
     deleteCell.innerHTML = "Delete";

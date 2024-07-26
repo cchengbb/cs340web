@@ -37,18 +37,18 @@ app.get('/', function(req, res)
       
     });
 
-app.get('/adopters', function(req, res) 
+app.get('/adopters', (req, res) =>
     {
         let query1;
 
         // If there is no query string, we just perfom a basic SELECT
-        if(req.query.firstName === undefined){
+        if(req.query.lastName === undefined){
             query1 = "SELECT * FROM Adopters;";
         }
 
         // If there is a query string, we assume this is a search, and return desired restul
         else{
-            query1 = `SELECT * FROM Adopters WHERE firstName LIKE "${req.query.firstName}%"`
+            query1 = `SELECT * FROM Adopters WHERE lastName LIKE "${req.query.lastName}%"`
         }
 
         db.pool.query(query1, function(error, rows, fileds){
@@ -222,8 +222,8 @@ app.put('/put-dog-ajax', function(req,res,next){
     let adopter = parseInt(data.adopterID);
     let dogName = parseInt(data.dogName);
   
-    let updatedogAdopter = `UPDATE Dogs SET adopterID = ? WHERE Dogs.id = ?`;
-    let adopterIDS = `SELECT * FROM Adopters WHERE id = ?`
+    let updatedogAdopter = `UPDATE Dogs SET adopterID = ? WHERE Dogs.dogID = ?`;
+    let adopterIDS = `SELECT * FROM Adopters WHERE adopterID = ?`
   
           // Run the 1st query
           db.pool.query(updatedogAdopter, [adopter, dogName], function(error, rows, fields){

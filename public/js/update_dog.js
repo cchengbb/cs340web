@@ -9,12 +9,15 @@ updateDogForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputDogName = document.getElementById("mySelect");
-    let inputAdopterID = document.getElementById("input-adopterID-update");
-
+    let inputDogName = document.getElementById("update-dog");
+    let inputAdopterID = document.getElementById("update-adopterID");
+    let updateBreed = document.getElementById("update-breed");
+    let updateHealthStatus = document.getElementById("update-healthStatus");
     // Get the values from the form fields
     let dogNameValue = inputDogName.value;
     let adopterIDValue = inputAdopterID.value;
+    let breedValue = updateBreed;
+    let healthStatusValue = updateHealthStatus;
     
     // currently the database table for bsg_people does not allow updating values to NULL
     // so we must abort if being bassed NULL for homeworld
@@ -28,12 +31,14 @@ updateDogForm.addEventListener("submit", function (e) {
     // Put our data we want to send in a javascript object
     let data = {
         dogName: dogNameValue,
+        breed: breedValue,
+        healthStatus: healthStatusValue,
         adopterID: adopterIDValue,
     }
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "/put-adopter-ajax", true);
+    xhttp.open("PUT", "/put-dog-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -41,7 +46,8 @@ updateDogForm.addEventListener("submit", function (e) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
-            updateRow(xhttp.response, dogNameValue);
+            // updateRow(xhttp.response, dogNameValue);
+            window.location.href ='/dogs';
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {

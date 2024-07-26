@@ -82,15 +82,21 @@
 <form id="update-dog-form-ajax">
 
     <label for="input-name">Dog Name: </label>
-    <select name="input-name" id="mySelect">
+    <select name="input-name" id="update-dog">
         <option value="test">Select one Dog </option>
         {{#each data}}
         <option value="{{this.dogID}}">{{this.dogName}}</option>
         {{/each}}
     </select>
 
+    <label for="update-breed">Breed: </label>
+    <input type="text" name="update-breed" id="update-breed-ajax">
+
+    <label for="update-healthStatus">Health Status: </label>
+    <input type="text" name="update-healthStatus" id="update-healthStatus-ajax">
+
     <label for="input-adopterID">Adopter full name: </label>
-    <select name="input-adopterID" id="input-adopterID-update">
+    <select name="input-adopterID" id="update-adopterID">
         <option>Select an adopter</option>
         {{#each adopters}}
         <option value="{{this.adopterID}}">{{this.firstName}} {{this.lastName}}</option>
