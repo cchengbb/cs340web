@@ -169,7 +169,7 @@ app.post('/add-dog-ajax', function(req, res) {
     let adopterID = parseInt(data.adopterID);
     if (isNaN(adopterID))
     {
-        adopterID = 'NULL'
+        adopterID = null;
     }
     // Create the query and run it on the database
     let query4 = `INSERT INTO Dogs(dogName, breed, healthStatus, sex, dateOfBirth, adopterID) 
