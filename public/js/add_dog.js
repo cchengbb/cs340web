@@ -25,7 +25,10 @@ addDogForm.addEventListener("submit", function(e){
     
     // Ensure adopterID is not empty; if empty, set to null
     if (adopterIDValue.trim() === '') {
-        adopterIDValue = null;
+        adopterIDValue = 'null';
+    }
+    else{
+        adopterIDValue =`'${adopterIDValue}'`;
     }
     
     // Put our data we want to send in a JavaScript object
@@ -35,7 +38,7 @@ addDogForm.addEventListener("submit", function(e){
         healthStatus: healthStatusValue,
         sex: sexValue,
         dateOfBirth: dateOfBirthValue,
-        adopterID: adopterIDValue
+        adopterID: adopterIDValue ? adopterIDValue: null
     }
 
     // Setup our AJAX request
@@ -97,7 +100,7 @@ addRowToDogTable = (data) =>{
     healthStatusCell.innerText = newRow.healthStatus;
     sexCell.innerText = newRow.sex;
     dateOfBirthCell.innerText = newRow.dateOfBirth;
-    adopterIDCell.innerText = newRow.adopterID || NULL;
+    adopterIDCell.innerText = newRow.adopterID || '';
 
     deleteCell = document.createElement("button");
     deleteCell.innerHTML = "Delete";

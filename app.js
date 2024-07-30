@@ -221,7 +221,8 @@ app.put('/put-dog-ajax', function(req,res,next){
   
     let adopter = parseInt(data.adopterID);
     let dogName = parseInt(data.dogName);
-  
+   
+
     let updatedogAdopter = `UPDATE Dogs SET adopterID = ? WHERE Dogs.dogID = ?`;
     let adopterIDS = `SELECT * FROM Adopters WHERE adopterID = ?`
   
