@@ -40,8 +40,13 @@
 <p>To add a new event, please enter their information below and click 'Submit'!</p>
 <form id="add-event-form-ajax">
     <label for="input-locationID">Event Location: </label>
-    <!--input type="number" name="input-adopterID" id="input-adopterID"-->
-    <input type="number" name="input-locationID" id="input-locationID-ajax"> 
+    <!--input type="number" name="input-adopterID" id="input-adopterID"--> 
+    <select name="input-locationID" id="input-locationID-ajax">
+        <option value="">Select One Location</option>
+        {{#each locations}}
+        <option value="{{this.locationID}}">{{this.address1}} {{this.city}} {{this.state}}</option>
+        {{/each}}
+    </select>
     
     <label for="input-eventName">Event Name: </label>
     <input type="text" name="input-eventName" id="input-eventName-ajax">

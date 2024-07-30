@@ -118,19 +118,45 @@ app.get('/dogs', (req, res) => {
 app.get('/events', function(req, res)
     {  
         let query1 = "SELECT * FROM Events;";               // Define our query
-
-        db.pool.query(query1, function(error, rows, fields){    // Execute the query
-            
+        let query2 = "SELECT * FROM Locations;";
+        db.pool.query(query1, function(error, events, fields){    // Execute the query
+            if (error) {
+                console.error('SQL error:', error);
+                res.status(500).send('Database error occurred');
+                return;
+            }
             // Iterate over each row and format the date
-            rows.forEach(row => {
-            if (row.eventDate) {
-                row.eventDate = formatDate(row.eventDate);
+            events.forEach(event => {
+            if (event.eventDate) {
+                event.eventDate = formatDate(event.eventDate);
             }
         });
 
-            res.render('events', {data: rows});                  // Render the index.hbs file, and also send the renderer
-        })                                                      // an object where 'data' is equal to the 'rows' we
-    });                                                         // received back from the query
+        db.pool.query(query2, function(error, locations, fileds){
+            if (error) {
+                console.error('SQL error:', error);
+                res.status(500).send('Database error occurred');
+                return;
+            }
+            // Create a map of locaiton IDs to location address and city
+            let locationMap ={};
+            locations.forEach(location =>{
+                locationMap[location.locationID] = location.address1 + ' ' + location.city + ' ' + location.state;
+            });
+
+            //Map location address to each event's locationID
+            events = events.map(event =>{
+                if (event.locaitonID && locationMap[event.locationID]){
+                    return{...event, locationID: locationMap[event.locationID]};
+                }
+                return event;
+            })
+
+            // Render the events pat with mapped data
+            res.render('events', {data: events, locations: locations});                  // Render the index.hbs file, and also send the renderer
+        })
+     })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
 
 
 app.post('/add-adopter-ajax', function(req, res)
