@@ -1,0 +1,58 @@
+<!-- events.hbs -->
+<h1>Events</h1>
+<p>Find out about upcoming events where you can meet our dogs in person. Manage events including adding, searching event information.</p>
+
+{{!-- Create a table --}}
+<table id="event-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            <th>Event ID</th>
+            <th>Location ID</th>
+            <th>Event Name</th>
+            <th>Event Date</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value ={{this.eventID}}>
+            <td>{{this.eventID}}</td>
+            <td>{{this.locationID}}</td>
+            <td>{{this.eventName}}</td>
+            <td>{{this.eventDate}}</td>
+            <td>{{this.description}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- Form to add a record to the table using AJAX -->
+<h2>Adding event Data with AJAX</h2>
+<p>To add a new event, please enter their information below and click 'Submit'!</p>
+<form id="add-event-form-ajax">
+    <label for="input-locationID">Event Location: </label>
+    <!--input type="number" name="input-adopterID" id="input-adopterID"-->
+    <input type="number" name="input-locationID" id="input-locationID-ajax"> 
+    
+    <label for="input-eventName">Event Name: </label>
+    <input type="text" name="input-eventName" id="input-eventName-ajax">
+
+    <label for="input-eventDate">Event Date: </label>
+    <input type="date" name="input-eventDate" id="input-eventDate-ajax">
+
+    <label for="input-description">Description: </label>
+    <input type="text" name="input-description" id="input-description-ajax">
+
+    <input type="submit">
+</form>
+<!-- Embed our JavaScript to handle the DOM manipulation and AJAX request -->
+<script src="./js/add_event.js"></script>

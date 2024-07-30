@@ -57,6 +57,7 @@ app.get('/adopters', (req, res) =>
         })  
     });
 
+
 // Dogs Route
 app.get('/dogs', (req, res) => {
     let query1;
@@ -110,6 +111,26 @@ app.get('/dogs', (req, res) => {
         });
     });
 });
+
+// Get Events
+// app.js
+
+app.get('/events', function(req, res)
+    {  
+        let query1 = "SELECT * FROM Events;";               // Define our query
+
+        db.pool.query(query1, function(error, rows, fields){    // Execute the query
+            
+            // Iterate over each row and format the date
+            rows.forEach(row => {
+            if (row.eventDate) {
+                row.eventDate = formatDate(row.eventDate);
+            }
+        });
+
+            res.render('events', {data: rows});                  // Render the index.hbs file, and also send the renderer
+        })                                                      // an object where 'data' is equal to the 'rows' we
+    });                                                         // received back from the query
 
 
 app.post('/add-adopter-ajax', function(req, res)
@@ -192,6 +213,51 @@ app.post('/add-dog-ajax', function(req, res) {
             });
         }
     });
+});
+
+// Post route to add new event
+
+app.post('/add-event-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+    let locationID = parseInt(data.locationID)
+    if (isNaN(locationID))
+        {
+            locationID = null
+        }
+    // Create the query and run it on the database
+    let query1 = `INSERT INTO Events (locationID, eventName, eventDate, description) VALUES (?, ?, ?, ?)`;
+    db.pool.query(query1, [locationID, data.eventName, data.eventDate, data.description],function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on bsg_people
+            query2 = `SELECT * FROM Events;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
 });
 
 app.delete('/delete-adopter-ajax', function(req, res, next) {
