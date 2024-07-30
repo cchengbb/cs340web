@@ -117,7 +117,15 @@ app.get('/dogs', (req, res) => {
 
 app.get('/events', function(req, res)
     {  
-        let query1 = "SELECT * FROM Events;";               // Define our query
+        let query1;               // Define our query
+        // Determin if there is search query for event names
+        if(req.query.eventName){
+            query1 = `SELECT * FROM Events WHERE eventName LIKE '%${req.query.eventName}%'`;
+        }
+        else{
+            query1 = "SELECT * FROM Events;";
+        }
+
         let query2 = "SELECT * FROM Locations;";
         db.pool.query(query1, function(error, events, fields){    // Execute the query
             if (error) {
@@ -141,7 +149,7 @@ app.get('/events', function(req, res)
             // Create a map of locaiton IDs to location address and city
             let locationMap ={};
             locations.forEach(location =>{
-                locationMap[location.locationID] = location.address1 + ' ' + location.city + ' ' + location.state;
+                locationMap[location.locationID] = location.address1 + ', ' + location.city + ', ' + location.state;
             });
 
             //Map location address to each event's locationID
