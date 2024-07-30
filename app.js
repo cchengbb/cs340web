@@ -146,17 +146,17 @@ app.get('/events', function(req, res)
 
             //Map location address to each event's locationID
             events = events.map(event =>{
-                if (event.locaitonID && locationMap[event.locationID]){
+                if (event.locationID && locationMap[event.locationID]){
                     return{...event, locationID: locationMap[event.locationID]};
                 }
                 return event;
             })
 
             // Render the events pat with mapped data
-            res.render('events', {data: events, locations: locations});                  // Render the index.hbs file, and also send the renderer
+            res.render('events', {data: events, locations: locations});                  // Render the .hbs file, and also send the renderer
         })
-     })                                                      // an object where 'data' is equal to the 'rows' we
-});                                                         // received back from the query
+     })                                                      
+});                                                        
 
 
 app.post('/add-adopter-ajax', function(req, res)
