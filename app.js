@@ -198,6 +198,131 @@ app.get('/locations', (req, res) =>
         })  
     });
 
+// Get Vaccinations
+app.get('/vaccinations', function(req, res)
+    {  
+        let query1; // Determine query1
+        // Search by event name
+        if (req.query.vaccinationType) {
+            query1 =`SELECT * FROM Vaccinations WHERE vaccinationType LIKE '%${req.query.vaccinationType}%'`;
+        }
+        // Search by event date
+        else if (req.query.vaccinationDate) {
+            query1 =`SELECT * FROM Vaccinations WHERE vaccinationDate LIKE '%${req.query.vaccinationDate}%'`;
+        }
+        else{
+        // Start the SQL query
+        query1 = "SELECT * FROM Vaccinations;";
+        }
+    
+        let query2 = "SELECT * FROM Dogs;";
+        db.pool.query(query1, function(error, vaccinations, fields){    // Execute the query
+            if (error) {
+                console.error('SQL error:', error);
+                res.status(500).send('Database error occurred');
+                return;
+            }
+            // Iterate over each row and format the date
+            vaccinations.forEach(vaccination => {
+            if (vaccination.vaccinationDate) {
+                vaccination.vaccinationDate = formatDate(vaccination.vaccinationDate);
+            }
+        });
+
+        db.pool.query(query2, function(error, dogs, fileds){
+            if (error) {
+                console.error('SQL error:', error);
+                res.status(500).send('Database error occurred');
+                return;
+            }
+            // Create a map of dog IDs to dog name
+            let dogMap ={};
+            dogs.forEach(dog =>{
+                dogMap[dog.dogID] = dog.dogName;
+            });
+
+            //Map location address to each event's locationID
+            vaccinations = vaccinations.map(vaccination =>{
+                if (vaccination.dogID && dogMap[vaccination.dogID]){
+                    return{...vaccination, dogID: dogMap[vaccination.dogID]};
+                }
+                return vaccination;
+            })
+
+            // Render the events pat with mapped data
+            res.render('vaccinations', {data: vaccinations, dogs: dogs});                  // Render the .hbs file, and also send the renderer
+        })
+     })                                                      
+});                             
+
+// Get Dog At Event
+app.get('/dogAtEvents', function(req, res)
+    {  
+        let query1; // Determine query1
+        // Search by dog  name
+        if (req.query.dogID) {
+            query1 =`SELECT * FROM DogAtEvents WHERE dogID LIKE '%${req.query.dogID}%'`;
+        }
+        // Search by event date
+        else if (req.query.eventName) {
+            query1 =`SELECT * FROM DogAtEvents WHERE eventID LIKE '%${req.query.eventID}%'`;
+        }
+        else{
+        // Start the SQL query
+        query1 = "SELECT * FROM DogAtEvents;";
+        }
+    
+        let query2 = "SELECT * FROM Dogs;";
+        let query3 = "SELECT * FROM Events;";
+        db.pool.query(query1, function(error, dogAtEvents, fields){    // Execute the query
+            if (error) {
+                console.error('SQL error:', error);
+                res.status(500).send('Database error occurred');
+                return;
+            }
+
+            db.pool.query(query2, function(error, dogs, fileds){
+                if (error) {
+                    console.error('SQL error:', error);
+                    res.status(500).send('Database error occurred');
+                    return;
+                }
+                // Create a map of locaiton IDs to location address and city
+                let dogMap ={};
+                dogs.forEach(dog =>{
+                    dogMap[dog.dogID] = dog.dogName;
+                });
+
+                db.pool.query(query3, function(error, events,fileds){
+                    if (error) {
+                        console.error('SQL error:', error);
+                        res.status(500).send('Database error occurred');
+                        return;
+                    }
+
+                    let eventMap ={};
+                    events.forEach(event =>{
+                        eventMap[event.eventID] = event.eventName;
+                    });
+
+                //Map location address to each event's locationID
+                dogAtEvents = dogAtEvents.map(dogAtEvent =>{
+                    if ((dogAtEvent.dogID && dogMap[dogAtEvent.dogID]) && (dogAtEvent.eventID && eventMap[dogAtEvent.eventID])){
+                        return{...dogAtEvent, dogID: dogMap[dogAtEvent.dogID], eventID: eventMap[dogAtEvent.eventID]};
+                    }
+                    return dogAtEvent;
+                })
+
+                // Render the events pat with mapped data
+                res.render('dogAtEvents', {data: dogAtEvents, dogs: dogs, events: events});     
+
+                })
+             // Render the .hbs file, and also send the renderer
+            })
+        })                                                      
+    });  
+
+// Add adopter
 app.post('/add-adopter-ajax', function(req, res)
 {
     // Capture the incoming data and parse it back to a JS object
@@ -364,6 +489,101 @@ app.post('/add-location-ajax', function(req, res)
         }
     })
 });
+
+// Add Vaccinations
+app.post('/add-vaccination-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+    let dogID = parseInt(data.dogID)
+    if (isNaN(dogID))
+        {
+            dogID = null
+        }
+    // Create the query and run it on the database
+    let query1 = `INSERT INTO Vaccinations (dogID, vaccinationType, vaccinationDate) VALUES (?, ?, ?)`;
+    db.pool.query(query1, [dogID, data.vaccinationType, data.vaccinationDate],function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Events
+            query2 = `SELECT * FROM Vaccinations;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+// Add Dog at Event
+app.post('/add-dogAtEvent-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+    let dogID = parseInt(data.dogID)
+    let eventID = parseInt(data.eventID)
+    if (isNaN(dogID))
+        {
+            dogID = null
+        }
+    if (isNaN(eventID))
+        {
+            eventID = null
+        }
+    // Create the query and run it on the database
+    let query1 = `INSERT INTO DogAtEvents (dogID, eventID) VALUES (?, ?)`;
+    db.pool.query(query1, [dogID, eventID],function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Events
+            query2 = `SELECT * FROM DogAtEvents;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+// Delet Adopter
 app.delete('/delete-adopter-ajax', function(req, res, next) {
     let data = req.body;
     console.log('Deleting adopter with ID:', data.adopterID);

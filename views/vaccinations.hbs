@@ -1,0 +1,88 @@
+<!-- vaccination.hbs -->
+<h1>Vaccinations</h1>
+<p>Detailed records of vaccinations for each dog. The page including add/search the vaccination.</p>
+
+{{!-- Create a table --}}
+<table id="vaccination-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            <th>Vaccination ID</th>
+            <th>Dog ID</th>
+            <th>Vaccination Type</th>
+            <th>Vaccination Date</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value ={{this.vaccinationID}}>
+            <td>{{this.vaccinationID}}</td>
+            <td>{{this.dogID}}</td>
+            <td>{{this.vaccinationType}}</td>
+            <td>{{this.vaccinationDate}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- Form to add a record to the table using AJAX -->
+<h2>Adding Vaccination Data with AJAX</h2>
+<p>To add a new vaccination, please enter their information below and click 'Submit'!</p>
+<form id="add-vaccination-form-ajax">
+    <label for="input-dogID">Dog Name: </label>
+    <!--input type="number" name="input-adopterID" id="input-adopterID"--> 
+    <select name="input-dogID" id="input-dogID-ajax">
+        <option value="">Select One Dog</option>
+        {{#each dogs}}
+        <option value="{{this.dogID}}">{{this.dogName}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-vaccinationType">Vaccination Type: </label>
+    <input type="text" name="input-vaccinationType" id="input-vaccinationType-ajax">
+
+    <label for="input-vaccinationDate">Event Date: </label>
+    <input type="date" name="input-vaccinationDate" id="input-vaccinationDate-ajax">
+
+    <input type="submit">
+</form>
+
+{{!-- Form to search by the vaccination type and date--}}
+<h2>Search Using a Standard HTML Form</h2>
+<p>Search by vaccination type, vaccination date, Partial vaccination type are OK too!</p>
+<form id="search-vaccination-html" method="GET" action="/vaccinations">
+    <!-- Search by Event Name -->
+    <div>
+        <label for="input-vaccinationType">Search by Vaccination Type :</label>
+        <input type="text" name="vaccinationType" id="input-vaccinationType-html-search">
+    </div>
+    <div>
+        <input type="submit" value="Search">
+        <button type="button" onclick="window.location.href='/vaccinations';">Reset</button>
+    </div>
+</form>
+
+
+<form id="search-vaccination-html" method="GET" action="/vaccinations">
+    
+    <!-- Search by Event Date -->
+    <div>
+        <label for="input-vaccinationDate">Search by Vaccination Date:</label>
+        <input type="date" name="vaccinationDate" id="input-vaccinationDate-html-search">
+    </div>
+
+    <div>
+        <input type="submit" value="Search">
+        <button type="button" onclick="window.location.href='/vaccinations';">Reset</button>
+    </div>
+</form>
+<!-- Embed our JavaScript to handle the DOM manipulation and AJAX request -->
+<script src="./js/add_vaccination.js"></script>

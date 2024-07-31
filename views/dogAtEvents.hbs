@@ -1,0 +1,87 @@
+<!-- dogAtEvents.hbs -->
+<h1>Dog At Events</h1>
+<p>You can find the dogs at the certain event, add/edit/delete/search the dogs at events..</p>
+
+{{!-- Create a table --}}
+<table id="dogAtEvent-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            <th>Dog Event ID</th>
+            <th>Dog ID</th>
+            <th>Event ID</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value ={{this.dogEventID}}>
+            <td>{{this.dogEventID}}</td>
+            <td>{{this.dogID}}</td>
+            <td>{{this.eventID}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- Form to add a record to the table using AJAX -->
+<h2>Adding Dog at event with AJAX</h2>
+<p>To add a new dog at event, please enter their information below and click 'Submit'!</p>
+<form id="add-dogAtEvent-form-ajax">
+    <label for="input-dogID">Dog Name: </label>
+    <select name="input-dogID" id="input-dogID-ajax">
+        <option value="">Select One Dog</option>
+        {{#each dogs}}
+        <option value="{{this.dogID}}">{{this.dogName}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-eventID">Event Name: </label>
+    <select name="input-eventID" id="input-eventID-ajax">
+        <option value="">Select One Event</option>
+        {{#each events}}
+        <option value="{{this.eventID}}">{{this.eventName}}</option>
+        {{/each}}
+    </select>
+
+    <input type="submit">
+</form>
+
+{{!-- Form to search by the event name, event date, or location--}}
+<h2>Search Using a Standard HTML Form</h2>
+<p>Search by dog name, event name, Partial names are OK too!</p>
+<form id="search-dogAtEvent-html" method="GET" action="/dogAtEvents">
+    <!-- Search by dog Name -->
+    <div>
+        <label for="input-dogName">Search by dog Name:</label>
+        <input type="text" name="dogName" id="input-dogName-html-search">
+    </div>
+    <div>
+        <input type="submit" value="Search">
+        <button type="button" onclick="window.location.href='/dogAtEvents';">Reset</button>
+    </div>
+</form>
+
+
+<form id="search-dogAtEvent-html" method="GET" action="/dogAtEvents">
+    
+    <!-- Search by event Date -->
+    <div>
+        <label for="input-eventName">Search by Event Name:</label>
+        <input type="text" name="eventName" id="input-eventName-html-search">
+    </div>
+
+    <div>
+        <input type="submit" value="Search">
+        <button type="button" onclick="window.location.href='/dogAtEvents';">Reset</button>
+    </div>
+</form>
+<!-- Embed our JavaScript to handle the DOM manipulation and AJAX request -->
+<script src="./js/add_dogAtEvent.js"></script>
