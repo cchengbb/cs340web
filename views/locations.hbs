@@ -1,0 +1,93 @@
+<!-- events.hbs -->
+<h1>Locations</h1>
+<p>Information on our various locations where dogs are housed and where events take place. Update and manage location details.</p>
+
+{{!-- Create a table --}}
+<table id="location-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            <th>Location ID</th>
+            <th>Address 1</th>
+            <th>Address 2</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip Code</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value ={{this.locationID}}>
+            <td>{{this.locationID}}</td>
+            <td>{{this.address1}}</td>
+            <td>{{this.address2}}</td>
+            <td>{{this.city}}</td>
+            <td>{{this.state}}</td>
+            <td>{{this.postalCode}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- Form to add a record to the table using AJAX -->
+<h2>Adding location Data with AJAX</h2>
+<p>To add a new location, please enter their information below and click 'Submit'!</p>
+<form id="add-location-form-ajax">
+
+    <label for="input-address1">Address 1: </label>
+    <input type="text" name="input-address1" id="input-address1-ajax">
+
+    <label for="input-address2">Address 2: </label>
+    <input type="text" name="input-address2" id="input-address2-ajax">
+    
+    <label for="input-city">City: </label>
+    <input type="text" name="input-city" id="input-city-ajax">
+    
+    <label for="input-state">State: </label>
+    <input type="text" name="input-state" id="input-state-ajax">
+
+    <label for="input-postalCode">Zip Code: </label>
+    <input type="text" name="input-postalCode" id="input-postalCode-ajax">
+
+    <input type="submit">
+</form>
+
+{{!-- Form to search by the event name, event date, or location--}}
+<h2>Search Using a Standard HTML Form</h2>
+<p>Search by city, state, Partial city or state are OK too!</p>
+<form id="search-location-html" method="GET" action="/locations">
+    <!-- Search by Event Name -->
+    <div>
+        <label for="input-city">Search by City Name:</label>
+        <input type="text" name="city" id="input-city-html-search">
+    </div>
+    <div>
+        <input type="submit" value="Search">
+        <button type="button" onclick="window.location.href='/events';">Reset</button>
+    </div>
+</form>
+
+
+<form id="search-location-html" method="GET" action="/locations">
+    
+    <!-- Search by Event Date -->
+    <div>
+        <label for="input-state">Search by State:</label>
+        <input type="text" name="state" id="input-state-html-search">
+    </div>
+
+    <div>
+        <input type="submit" value="Search">
+        <button type="button" onclick="window.location.href='/locations';">Reset</button>
+    </div>
+</form>
+<!-- Embed our JavaScript to handle the DOM manipulation and AJAX request -->
+<script src="./js/add_location.js"></script>

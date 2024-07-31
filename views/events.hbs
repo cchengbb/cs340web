@@ -60,16 +60,34 @@
     <input type="submit">
 </form>
 
-{{!-- Form to search by the dog name--}}
+{{!-- Form to search by the event name, event date, or location--}}
 <h2>Search Using a Standard HTML Form</h2>
-<p>Search by event name using the field below. Partial names are OK too!</p>
+<p>Search by event name, event date, Partial names are OK too!</p>
 <form id="search-event-html" method="GET" action="/events">
-    <label for="input-eventName">Search by Event Name: </label>
-    <input type="text" name="eventName" id="input-eventName-html-search">
-    
-    <input type="submit" value="Search">
-    <a href="/events"><button>Reset</button></a>
+    <!-- Search by Event Name -->
+    <div>
+        <label for="input-eventName">Search by Event Name:</label>
+        <input type="text" name="eventName" id="input-eventName-html-search">
+    </div>
+    <div>
+        <input type="submit" value="Search">
+        <button type="button" onclick="window.location.href='/events';">Reset</button>
+    </div>
 </form>
 
+
+<form id="search-event-html" method="GET" action="/events">
+    
+    <!-- Search by Event Date -->
+    <div>
+        <label for="input-eventDate">Search by Event Date:</label>
+        <input type="date" name="eventDate" id="input-eventDate-html-search">
+    </div>
+
+    <div>
+        <input type="submit" value="Search">
+        <button type="button" onclick="window.location.href='/events';">Reset</button>
+    </div>
+</form>
 <!-- Embed our JavaScript to handle the DOM manipulation and AJAX request -->
 <script src="./js/add_event.js"></script>

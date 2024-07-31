@@ -48,7 +48,7 @@ app.get('/adopters', (req, res) =>
 
         // If there is a query string, we assume this is a search, and return desired restul
         else{
-            query1 = `SELECT * FROM Adopters WHERE lastName LIKE "${req.query.lastName}%"`
+            query1 = `SELECT * FROM Adopters WHERE lastName LIKE "%${req.query.lastName}%"`;
         }
 
         db.pool.query(query1, function(error, rows, fileds){
@@ -113,19 +113,23 @@ app.get('/dogs', (req, res) => {
 });
 
 // Get Events
-// app.js
 
 app.get('/events', function(req, res)
     {  
-        let query1;               // Define our query
-        // Determin if there is search query for event names
-        if(req.query.eventName){
-            query1 = `SELECT * FROM Events WHERE eventName LIKE '%${req.query.eventName}%'`;
+        let query1; // Determine query1
+        // Search by event name
+        if (req.query.eventName) {
+            query1 =`SELECT * FROM Events WHERE eventName LIKE '%${req.query.eventName}%'`;
+        }
+        // Search by event date
+        else if (req.query.eventDate) {
+            query1 =`SELECT * FROM Events WHERE eventDate LIKE '%${req.query.eventDate}%'`;
         }
         else{
-            query1 = "SELECT * FROM Events;";
+        // Start the SQL query
+        query1 = "SELECT * FROM Events;";
         }
-
+    
         let query2 = "SELECT * FROM Locations;";
         db.pool.query(query1, function(error, events, fields){    // Execute the query
             if (error) {
@@ -166,6 +170,33 @@ app.get('/events', function(req, res)
      })                                                      
 });                                                        
 
+// Get locations
+app.get('/locations', (req, res) =>
+    {
+        let query1;
+
+        // If there query is city
+        if(req.query.city){
+            query1 = `SELECT * FROM Locations WHERE city LIKE "%${req.query.city}%"`;
+            
+        }
+
+        // If there query is state
+        else if(req.query.state){
+            query1 = `SELECT * FROM Locations WHERE state LIKE "%${req.query.state}%"`;
+            
+        }
+
+        // If there is a query string, we assume this is a search, and return desired restul
+        else{
+            query1 = "SELECT * FROM Locations;";
+        }
+
+        db.pool.query(query1, function(error, rows, fileds){
+            
+            res.render('locations', {data: rows});
+        })  
+    });
 
 app.post('/add-adopter-ajax', function(req, res)
 {
@@ -250,7 +281,6 @@ app.post('/add-dog-ajax', function(req, res) {
 });
 
 // Post route to add new event
-
 app.post('/add-event-ajax', function(req, res) 
 {
     // Capture the incoming data and parse it back to a JS object
@@ -273,7 +303,7 @@ app.post('/add-event-ajax', function(req, res)
         }
         else
         {
-            // If there was no error, perform a SELECT * on bsg_people
+            // If there was no error, perform a SELECT * on Events
             query2 = `SELECT * FROM Events;`;
             db.pool.query(query2, function(error, rows, fields){
 
@@ -294,6 +324,46 @@ app.post('/add-event-ajax', function(req, res)
     })
 });
 
+// Post route to add new location
+
+app.post('/add-location-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    let query1 = `INSERT INTO Locations (address1, address2, city, state, postalCode) VALUES (?, ?, ?, ?, ?)`;
+    db.pool.query(query1, [data.address1, data.address2, data.city, data.state, data.postalCode],function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on locations
+            query2 = `SELECT * FROM Locations;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
 app.delete('/delete-adopter-ajax', function(req, res, next) {
     let data = req.body;
     console.log('Deleting adopter with ID:', data.adopterID);
