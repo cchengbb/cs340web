@@ -257,16 +257,16 @@ app.get('/vaccinations', function(req, res)
 
 // Get Dog At Event
 app.get('/dogAtEvents', function(req, res)
-    {  
+    {   
         let query1; // Determine query1
-        // Search by dog  name
+        // Search by dog name
         if (req.query.dogID) {
             query1 =`SELECT * FROM DogAtEvents WHERE dogID LIKE '%${req.query.dogID}%'`;
         }
         // Search by event date
-        else if (req.query.eventName) {
-            query1 =`SELECT * FROM DogAtEvents WHERE eventID LIKE '%${req.query.eventID}%'`;
-        }
+        else if (req.query.eventID) {
+        query1 =`SELECT * FROM DogAtEvents WHERE eventID LIKE '%${req.query.eventID}%'`;
+         }
         else{
         // Start the SQL query
         query1 = "SELECT * FROM DogAtEvents;";
