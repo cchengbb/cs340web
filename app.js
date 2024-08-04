@@ -1,7 +1,7 @@
-// Citation for the following function:
+// Citation for the following form:
 // Date: 08/04/2024
 // Adapted Based on:
-// Source: URL: https://github.com/currym-osu/CS340-demo-flask-app
+// Source: URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app-->
 
 /*
     SETUP
