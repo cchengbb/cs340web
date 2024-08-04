@@ -9,11 +9,13 @@
         <!-- For just the first row, we print each key of the row object as a header 
         so we know what each column means when the page renders -->
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>Dog ID</th>
+            <th>Dog Name</th>
+            <th>Breed</th>
+            <th>Health Status</th>
+            <th>Sex</th>
+            <th>Date of Birth</th>
+            <th>Adopter Name</th>
         </tr>
     </thead>
 
