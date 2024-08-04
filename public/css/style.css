@@ -1,0 +1,84 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #efe3b6;  /* Fallback color in case the image fails to load */ 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    justify-content: center; /* Centers items on the main-axis */
+    align-items: center; /* Align items on the cross-axis */
+    flex-wrap: wrap; /* Allows items to wrap as needed */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+  #globalNav a{
+    margin:1% 1%;
+    padding: 0.5% 1% 1% 1%;
+    color: rgb(63, 84, 58);
+    border: 3px solid rgb(184, 246, 235)k;
+}
+
+nav a {
+    font-size: 1.1rem;
+    border-radius: 1000px;
+    text-decoration: none;
+    color: black;
+    background-color: bisque;
+  }
+  
+nav a:hover {
+    font-size: 1.1rem;
+    border-radius: 1000px;
+    text-decoration: none;
+    color: rgb(231, 243, 219);
+    background-color: rgb(217, 250, 247);
+  }
+
+table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse:collapse;
+    margin-top: 50px;
+  }
+th {
+    text-align: center;
+    text-transform: capitalize;
+    color: #67624a;
+    background-color: bisque;
+  }
+tr {
+    border-bottom: 1px solid #908b79;
+    padding: 5px;
+    text-align: left;
+  }
+td {
+    text-align: center;
+    color:#4e4a3e;
+  }
+  
+#update_dogAtEvent_form_ajax{
+    font-size: xx-large;
+    }
+
+#edit_dogAtEvent_form_ajax input{
+        font-size: x-large;
+      }
+#edit_dogAtEvent_form_ajax option{
+        font-size: x-large;
+}
+#edit_dogAtEvent_form_ajax select{
+        font-size: x-large;
+      }
+button {
+        background: bisque;
+        display: inline-block;
+        width: 8vw;
+        overflow: hidden;
+        margin-top: 20px;
+      }

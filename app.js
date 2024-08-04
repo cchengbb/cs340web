@@ -606,6 +606,31 @@ app.delete('/delete-adopter-ajax', function(req, res, next) {
     });
 });
 
+// Delete DogAtEvent
+app.delete('/delete-dogAtEvent-ajax', function(req, res, next) {
+    let data = req.body;
+    console.log('Deleting adopter with ID:', data.dogEventID);
+
+    let deleteAdopterQuery = `DELETE FROM DogAtEvents WHERE dogEventID = ?`;
+
+    // Execute the query to delete the adopter
+    db.pool.query(deleteAdopterQuery, [data.dogEventID], function(error, result) {
+        if (error) {
+            // Log the error and send a 500 status code if there's a database error
+            console.error('SQL error:', error);
+            res.status(500).send('Failed to delete adopter due to database error');
+        } else if (result.affectedRows === 0) {
+            // No rows affected, meaning no adopter was found with that ID
+            res.status(404).send('No adopter found with that ID');
+        } else {
+            // Successfully deleted the adopter
+            res.sendStatus(204); // 204 No Content
+        }
+    });
+});
+
+
+// update dog at event information
 app.put('/put-dog-ajax', function(req,res,next){
     let data = req.body;
   
@@ -641,6 +666,36 @@ app.put('/put-dog-ajax', function(req,res,next){
                   })
               }
   })});
+
+// Update the Dog At Event 
+app.put('/put-dogAtEvent-ajax', function(req, res, next){
+    let data = req.body;
+
+    let dogEventID = parseInt(data.dogEventID);
+    let dogID = parseInt(data.dogID);
+    let eventID = parseInt(data.eventID);
+    
+    if (isNaN(dogEventID) || isNaN(dogID) || isNaN(eventID)) {
+        return res.status(400).send("Invalid dogEventID, dogID, or eventID provided.");
+    }
+
+    // Correct query with parameters in the right order
+    let query = `UPDATE DogAtEvents SET dogID = ?, eventID = ? WHERE dogEventID = ?`;
+    let queryParams = [dogID, eventID, dogEventID];
+
+    // Run the update query
+    db.pool.query(query, queryParams, function(error, result){
+        if (error) {
+            console.error('SQL error:', error);
+            res.status(500).send('Failed to update due to database error.');
+        } else if (result.affectedRows === 0) {
+            res.status(404).send("No matching record found to update.");
+        } else {
+            res.send("Update successful.");
+        }
+    });
+});
+
 /*
     LISTENER
 */

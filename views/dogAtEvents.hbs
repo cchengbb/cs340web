@@ -26,13 +26,15 @@
             <td>{{this.dogEventID}}</td>
             <td>{{this.dogID}}</td>
             <td>{{this.eventID}}</td>
+            <td><button onclick="deleteDogAtEvent({{this.dogEventID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="./js/delete_dogAtEvent.js"></script>
 
 <!-- Form to add a record to the table using AJAX -->
-<h2>Adding Dog at event with AJAX</h2>
+<h2>Adding Dog At Event</h2>
 <p>To add a new dog at event, please enter their information below and click 'Submit'!</p>
 <form id="add-dogAtEvent-form-ajax">
     <label for="input-dogID-ajax">Dog Name: </label>
@@ -50,12 +52,41 @@
         <option value="{{this.eventID}}">{{this.eventName}}</option>
         {{/each}}
     </select>
-
     <input type="submit">
 </form>
 
+<!-- Form to add a record to the dog at event table using AJAX -->
+<h2>Update Dog Event Association</h2>
+<form id="update-dogAtEvent-form-ajax">
+    <label for="update-dogEventID">Dog-Event Association:</label>
+    <select id="update-dogEventID">
+        <option value="">Select an Association</option>
+        {{#each data}}
+        <option value="{{this.dogEventID}}">{{this.dogEventID}} {{this.dogID}} {{this.eventID}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update-dog">Dog Name:</label>
+    <select id="update-dog">
+        {{#each dogs}}
+        <option value="{{this.dogID}}">{{this.dogName}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update-eventID">Event Name:</label>
+    <select id="update-eventID">
+        {{#each events}}
+        <option value="{{this.eventID}}">{{this.eventName}}</option>
+        {{/each}}
+    </select>
+    
+    <button type="submit">Update Association</button>
+</form>
+<script src="./js/update_dogAtEvent.js"></script>
+
+
 {{!-- Form to search by the event name, event date, or location--}}
-<h2>Search Using a Standard HTML Form</h2>
+<h2>Search Dog At Event</h2>
 <p>Search Only by dog name or event name, partial names are OK too!</p>
 <form id="search-dogAtEvent-html" method="GET" action="/dogAtEvents">
     <!-- Search by dog Name -->

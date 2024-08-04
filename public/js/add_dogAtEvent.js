@@ -62,21 +62,39 @@ function addRowToTable(data) {
     let idCell = document.createElement("TD");
     let dogIDCell = document.createElement("TD");
     let eventIDCell = document.createElement("TD");
+    let deleteCell = document.createElement("TD");
 
     // Fill the cells with correct data
     idCell.innerText = newRow.dogEventID;
     dogIDCell.innerText = newRow.dogID;
     eventIDCell.innerText = newRow.eventID;
 
+    deleteCell = document.createElement("button");
+    deleteCell.innerHTML = "Delete";
+    deleteCell.onclick = function(){
+        deletePerson(newRow.dogEventID);
+    };
+
     // Add the cells to the row
     row.appendChild(idCell);
     row.appendChild(dogIDCell);
     row.appendChild(eventIDCell);
-
+    row.appendChild(deleteCell);
+    
     // Add a custom row attribute so the deleteRow function can find a newly added row
     row.setAttribute('data-value', newRow.id);
 
     // Add the row to the table
     currentTable.appendChild(row);
     location.reload();
+    
+    // Find drop down menu, create a new option, fill data in the option (full name, id),
+    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
+    let selectMenu = document.getElementById("update-dog");
+    let option = document.createElement("option");
+    option.text = newRow.dogID;
+    option.value = newRow.eventID;
+    selectMenu.add(option);
+    // End of new step 8 code.
+
 }

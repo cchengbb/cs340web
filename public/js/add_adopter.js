@@ -78,7 +78,7 @@ addRowToTable = (data) => {
     let deleteCell = document.createElement("TD");
 
     // Fill the cells with correct data
-    idCell.innerText = newRow.id;
+    idCell.innerText = newRow.adopterID;
     firstNameCell.innerText = newRow.firstName;
     lastNameCell.innerText = newRow.lastName;
     adopterEmailCell.innerText = newRow.adopterEmail;
