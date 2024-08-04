@@ -56,10 +56,11 @@
 
 {{!-- Form to search by the event name, event date, or location--}}
 <h2>Search Using a Standard HTML Form</h2>
-<p>Search by dog name, event name, Partial names are OK too!</p>
+<p>Search Only by dog name or event name, partial names are OK too!</p>
 <form id="search-dogAtEvent-html" method="GET" action="/dogAtEvents">
     <!-- Search by dog Name -->
     <div>
+        <label for = "searchdogID"></label>
         <select name="dogID" id="input-dogID-html-search">
         <option value="">Search by One Dog Name</option>
         {{#each dogs}}
@@ -78,6 +79,7 @@
     
     <!-- Search by event Date -->
     <div>
+        <label for = "searcheventID"></label>
         <select name="eventID" id="input-eventName-ajax">
         <option value="">Search by One Event name </option>
         {{#each events}}
