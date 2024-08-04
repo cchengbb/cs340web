@@ -1,3 +1,8 @@
+// Citation for the following function:
+// Date: 08/04/2024
+// Adapted Based on:
+// Source: URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 function deleteAdopter(adopterID) {
     // Put our data we want to send in a javascript object
     let data = {

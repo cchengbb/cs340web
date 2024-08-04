@@ -1,3 +1,8 @@
+// Citation for the following function:
+// Date: 08/04/2024
+// Adapted Based on:
+// Source: URL: https://github.com/currym-osu/CS340-demo-flask-app
+
 /*
     SETUP
 */

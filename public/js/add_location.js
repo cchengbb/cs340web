@@ -1,3 +1,7 @@
+// Citation for the following function:
+// Date: 08/04/2024
+// Adapted Based on:
+// Source: URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 // Get the form element
 let addLocationForm = document.getElementById('add-location-form-ajax'); // Ensure this ID matches your form ID
 

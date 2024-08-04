@@ -1,3 +1,7 @@
+// Citation for the following function:
+// Date: 08/04/2024
+// Adapted Based on:
+// Source: URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
 // Get the objects we need to modify
 let updateDogForm = document.getElementById('update-dog-form-ajax');
