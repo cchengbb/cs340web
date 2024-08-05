@@ -1,4 +1,4 @@
-// Citation for the following function:
+// Citation for the following template:
 // Date: 08/04/2024
 // Adapted Based on:
 // Source: URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
@@ -68,7 +68,7 @@ function updateRow(data, dogEventID){
             // Get the location of the row where we found the matching person ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-            // Get td of  value
+            // Get td of value
             let td = updateRowIndex.getElementsByTagName("td")[3];
 
             // Reassign  to our value we updated to

@@ -7,7 +7,7 @@
 <h1>Locations</h1>
 <p>Information on our various locations where dogs are housed and where events take place. Update and manage location details.</p>
 
-{{!-- Create a table --}}
+{{!-- Create a table to display locations --}}
 <table id="location-table">
 
     {{!-- Header section --}}
@@ -28,7 +28,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the locationID, address1, address2, city, state and postalCode, in order --}}
         {{#each data}}
         <tr data-value ={{this.locationID}}>
             <td>{{this.locationID}}</td>
@@ -42,8 +42,8 @@
     </tbody>
 </table>
 
-<!-- Form to add a record to the table using AJAX -->
-<h2>Adding location Data with AJAX</h2>
+<!-- Form to add a new location to the table using AJAX -->
+<h2>Adding A New Location</h2>
 <p>To add a new location, please enter their information below and click 'Submit'!</p>
 <form id="add-location-form-ajax">
 
@@ -65,11 +65,11 @@
     <input type="submit">
 </form>
 
-{{!-- Form to search by the event name, event date, or location--}}
-<h2>Search Using a Standard HTML Form</h2>
+{{!-- Form to search by the city or state--}}
+<h2>Search the Location by City Or State</h2>
 <p>Search by only city or state, partial city or state are OK too!</p>
 <form id="search-location-html" method="GET" action="/locations">
-    <!-- Search by Event Name -->
+    <!-- Search by city -->
     <div>
         <label for="input-city">Search by City Name:</label>
         <input type="text" name="city" id="input-city-html-search">
@@ -83,7 +83,7 @@
 
 <form id="search-location-html" method="GET" action="/locations">
     
-    <!-- Search by Event Date -->
+    <!-- Search by state -->
     <div>
         <label for="input-state">Search by State:</label>
         <input type="text" name="state" id="input-state-html-search">

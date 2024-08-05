@@ -1,4 +1,4 @@
-// Citation for the following form:
+// Citation for the following templates and routes:
 // Date: 08/04/2024
 // Adapted Based on:
 // Source: URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app-->
@@ -122,7 +122,6 @@ app.get('/dogs', (req, res) => {
 });
 
 // Get Events
-
 app.get('/events', function(req, res)
     {  
         let query1; // Determine query1
@@ -459,7 +458,6 @@ app.post('/add-event-ajax', function(req, res)
 });
 
 // Post route to add new location
-
 app.post('/add-location-ajax', function(req, res) 
 {
     // Capture the incoming data and parse it back to a JS object
@@ -592,7 +590,7 @@ app.post('/add-dogAtEvent-ajax', function(req, res)
     })
 });
 
-// Delet Adopter
+// Delete Adopter
 app.delete('/delete-adopter-ajax', function(req, res, next) {
     let data = req.body;
     console.log('Deleting adopter with ID:', data.adopterID);
@@ -639,7 +637,7 @@ app.delete('/delete-dogAtEvent-ajax', function(req, res, next) {
 });
 
 
-// update dog at event information
+// Update dog at event information
 app.put('/put-dog-ajax', function(req,res,next){
     let data = req.body;
   

@@ -7,7 +7,7 @@
 <h1>Dog At Events</h1>
 <p>You can find the dogs at the certain event, add/edit/delete/search the dogs at events.</p>
 
-{{!-- Create a table --}}
+{{!-- Create a table to display dog at event --}}
 <table id="dogAtEvent-table">
 
     {{!-- Header section --}}
@@ -26,7 +26,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the dogEventID, dogID, eventID, in order --}}
         {{#each data}}
         <tr data-value ={{this.dogEventID}}>
             <td>{{this.dogEventID}}</td>
@@ -91,7 +91,7 @@
 <script src="./js/update_dogAtEvent.js"></script>
 
 
-{{!-- Form to search by the event name, event date, or location--}}
+{{!-- Form to search by the dog name, event date --}}
 <h2>Search Dog At Event</h2>
 <p>Search by only dog name or event name, partial names are OK too!</p>
 <form id="search-dogAtEvent-html" method="GET" action="/dogAtEvents">
