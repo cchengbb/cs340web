@@ -29,7 +29,11 @@ app.use(express.static('public'));
 
 // Helper function to format dates
 function formatDate(date) {
-    return date.toISOString().substring(0, 10);  // Convert date object to YYYY-MM-DD format
+    if (date instanceof Date && !isNaN(date)) {
+        return date.toISOString().substring(0, 10);
+    } else {
+        return ''; // or return a default/fallback date string or null
+    }
 }
 
 /*
