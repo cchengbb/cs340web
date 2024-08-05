@@ -34,7 +34,7 @@
             <td>{{this.lastName}}</td>
             <td>{{this.adopterEmail}}</td>
             <td>{{this.phoneNumber}}</td>
-            <td><button onclick="deleteAdopter({{this.adopterID}})">Delete</button></td>
+            <td><button class="deleteBtn" onclick="deleteAdopter({{this.adopterID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
@@ -43,12 +43,12 @@
 
 {{!-- Form to search by the dog name--}}
 <h2>Search Using a Standard HTML Form</h2>
-<p>Search by adotper's last name using the field below. Partial names are OK too!</p>
+<p>Search by adopter's last name using the field below. Partial names are OK too!</p>
 <form id="search-adopter-html" method="GET" action="/adopters">
     <label for="input-lastName-html-search">Search by Adopter Last Name: </label>
     <input type="text" name="lastName" id="input-lastName-html-search">
-    
-    <input type="submit" value="Search">
+
+    <input class="form-small-btn" type="submit" value="Search">
     <a href="/adopters"><button>Reset</button></a>
 </form>
 
@@ -56,19 +56,27 @@
 <h2>Adding Data with AJAX</h2>
 <P>To add a new adopter, please eneter their information below and click 'Submit'!</P>
 <form id="add-adopter-form-ajax">
-    <lable for="input-firstName">First Name: </lable>
-    <input type="text" name="'input-firstName" id="input-firstName-ajax">
+    <div class="form-group">
+        <lable for="input-firstName">First Name: </lable>
+        <input type="text" name="'input-firstName" id="input-firstName-ajax">
+    </div>
 
-    <lable for="input-lastName">Last Name: </lable>
-    <input type="text" name="input-lastName" id="input-lastName-ajax">
+    <div class="form-group">
+        <lable for="input-lastName">Last Name: </lable>
+        <input type="text" name="input-lastName" id="input-lastName-ajax">
+    </div>
 
-    <lable for="input-adopterEmail">Adopter Email: </lable>
-    <input type="email" name="input-adopterEmail" id="input-adopterEmail-ajax">
+    <div class="form-group">
+        <lable for="input-adopterEmail">Adopter Email: </lable>
+        <input type="email" name="input-adopterEmail" id="input-adopterEmail-ajax">
+    </div>
 
-    <lable for="input-phoneNumber">Phone Number: </lable>
-    <input type="tel" name="input-phoneNumber" id="input-phoneNumber-ajax">
+    <div class="form-group">
+        <lable for="input-phoneNumber">Phone Number: </lable>
+        <input type="tel" name="input-phoneNumber" id="input-phoneNumber-ajax">
+    </div>
 
-    <input type="submit">
+    <input class="form-small-btn" type="submit">
 </form>
 
 {{!--Embed our javascript to handle the DOM  manipulation and AJAX request--}}

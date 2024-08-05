@@ -7,25 +7,34 @@ Source: URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app-->
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Furever Dog Adoptions</title>
-        <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-
-    <h1 ="projectTitle">Furever Dog Adoptions</h1>
-
-<nav id="globalNav">
-        <a href="/">Home</a>
-        <a href="/adopters">Adopters</a>
-        <a href="/dogs">Dogs</a>
-        <a href="/events">Events</a>
-        <a href="/dogAtEvents">DogAtEvents</a>
-        <a href="/locations">Locations</a>
-        <a href="/vaccinations">Vaccinations</a>      
-</nav>
-    <main>
-        {{{body}}}
-    </main>
+    <div class="wrapper">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/adopters">Adopters</a></li>
+                    <li><a href="/dogs">Dogs</a></li>
+                    <li><a href="/events">Events</a></li>
+                    <li><a href="/dogAtEvents">DogAtEvents</a></li>
+                    <li><a href="/locations">Locations</a></li>
+                    <li><a href="/vaccinations">Vaccinations</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+            {{{body}}}
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 Furever Dog Adoptions. All rights reserved.</p>
+        </footer>
+    </div>
 </body>
 </html>

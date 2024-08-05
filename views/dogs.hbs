@@ -40,6 +40,7 @@
         {{/each}}
     </tbody>
 </table>
+
 {{!-- Form to search by the dog name--}}
 <h2>Search Using a Standard HTML Form</h2>
 <p>Search by dog name using the field below. Partial names are OK too!</p>
@@ -47,7 +48,7 @@
     <label for="input-dogName">Search by Dog Name: </label>
     <input type="text" name="dogName" id="input-dogName-html-search">
     
-    <input type="submit" value="Search">
+    <input class="form-small-btn" type="submit" value="Search">
     <a href="/dogs"><button>Reset</button></a>
 </form>
 
@@ -79,13 +80,15 @@
         {{/each}}
     </select>
 
-    <input type="submit">
+    <input class="form-small-btn" type="submit">
 </form>
 <!-- Embed our JavaScript to handle the DOM manipulation and AJAX request -->
 <script src="./js/add_dog.js"></script>
 
 <h2>Updating A dog's adopter Form</h2>
-<p>To update a specific user's adopter select their name from the drop-down menu on the left and their desired adopter from the drop down menu on the right</p>
+<p>To update a specific user's adopter select their name from the drop-down menu on the 
+   left and their desired adopter from the drop down menu on the right
+</p>
 <form id="update-dog-form-ajax">
 
     <label for="input-name">Dog Name: </label>
@@ -103,8 +106,8 @@
         <option value="{{this.adopterID}}">{{this.firstName}} {{this.lastName}}</option>
         {{/each}}
     </select>
-    <input type="submit">
 
+    <input class="form-small-btn" type="submit">
 </form>
 
 <script src="./js/update_dog.js"></script>

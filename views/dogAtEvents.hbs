@@ -32,7 +32,7 @@
             <td>{{this.dogEventID}}</td>
             <td>{{this.dogID}}</td>
             <td>{{this.eventID}}</td>
-            <td><button onclick="deleteDogAtEvent({{this.dogEventID}})">Delete</button></td>
+            <td><button class="deleteBtn" onclick="deleteDogAtEvent({{this.dogEventID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
@@ -58,7 +58,7 @@
         <option value="{{this.eventID}}">{{this.eventName}}</option>
         {{/each}}
     </select>
-    <input type="submit">
+    <input class="form-small-btn" type="submit">
 </form>
 
 <!-- Form to add a record to the dog at event table using AJAX -->
@@ -86,7 +86,7 @@
         {{/each}}
     </select>
     
-    <button type="submit">Update Association</button>
+    <button class="form-small-btn" type="submit">Update Association</button>
 </form>
 <script src="./js/update_dogAtEvent.js"></script>
 
@@ -106,7 +106,7 @@
     </select>
     </div>
     <div>
-        <input type="submit" value="Search">
+        <input class="form-small-btn" type="submit" value="Search">
         <button type="button" onclick="window.location.href='/dogAtEvents';">Reset</button>
     </div>
 </form>
@@ -126,7 +126,7 @@
     </div>
 
     <div>
-        <input type="submit" value="Search">
+        <input class="form-small-btn" type="submit" value="Search">
         <button type="button" onclick="window.location.href='/dogAtEvents';">Reset</button>
     </div>
 </form>
