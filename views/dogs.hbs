@@ -42,7 +42,7 @@
 </table>
 
 {{!-- Form to search by the dog name--}}
-<h2>Search Using a Standard HTML Form</h2>
+<h2>Search A Dog By Name</h2>
 <p>Search by dog name using the field below. Partial names are OK too!</p>
 <form id="search-dog-html" method="GET" action="/dogs">
     <label for="input-dogName">Search by Dog Name: </label>
@@ -53,7 +53,7 @@
 </form>
 
 <!-- Form to add a record to the table using AJAX -->
-<h2>Adding Dog Data with AJAX</h2>
+<h2>Adding A New Dog</h2>
 <p>To add a new dog, please enter their information below and click 'Submit'!</p>
 <form id="add-dog-form-ajax">
     <label for="input-dogName">Dog Name: </label>
@@ -72,7 +72,6 @@
     <input type="date" name="input-dateOfBirth" id="input-dateOfBirth-ajax">
 
     <label for="input-adopterID">Adopter ID (optional): </label>
-    <!--input type="number" name="input-adopterID" id="input-adopterID"-->
     <select name="input-adopterID" id="input-adopterID-ajax">
         <option value="">Select an Adopter</option>
         {{#each adopters}}
@@ -85,10 +84,8 @@
 <!-- Embed our JavaScript to handle the DOM manipulation and AJAX request -->
 <script src="./js/add_dog.js"></script>
 
-<h2>Updating A dog's adopter Form</h2>
-<p>To update a specific user's adopter select their name from the drop-down menu on the 
-   left and their desired adopter from the drop down menu on the right
-</p>
+<h2>Updating A Dog's Adopter</h2>
+<p>To update a specific user's adopter select their name from the drop-down menu on the left and their desired adopter from the drop down menu on the right</p>
 <form id="update-dog-form-ajax">
 
     <label for="input-name">Dog Name: </label>

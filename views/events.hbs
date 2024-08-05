@@ -7,7 +7,7 @@
 <h1>Events</h1>
 <p>Find out about upcoming events where you can meet our dogs in person. Manage events including adding, searching event information.</p>
 
-{{!-- Create a table --}}
+{{!-- Create a table to display event--}}
 <table id="event-table">
 
     {{!-- Header section --}}
@@ -27,7 +27,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the eventID, locaitonID, eventName, eventDate and description, in order --}}
         {{#each data}}
         <tr data-value ={{this.eventID}}>
             <td>{{this.eventID}}</td>
@@ -40,8 +40,8 @@
     </tbody>
 </table>
 
-<!-- Form to add a record to the table using AJAX -->
-<h2>Adding event Data with AJAX</h2>
+<!-- Form to add an event to the table using AJAX -->
+<h2>Adding An New Event</h2>
 <p>To add a new event, please enter their information below and click 'Submit'!</p>
 <form id="add-event-form-ajax">
     <label for="input-locationID">Event Location: </label>
@@ -65,8 +65,8 @@
     <input class="form-small-btn" type="submit">
 </form>
 
-{{!-- Form to search by the event name, event date, or location--}}
-<h2>Search Using a Standard HTML Form</h2>
+{{!-- Form to search by the event name, event date--}}
+<h2>Search An Event by Name or Date</h2>
 <p>Search by only event name or event date, partial names are OK too!</p>
 <form id="search-event-html" method="GET" action="/events">
     <!-- Search by Event Name -->

@@ -7,7 +7,7 @@
 <h1>Vaccinations</h1>
 <p>Detailed records of vaccinations for each dog. The page including add/search the vaccination.</p>
 
-{{!-- Create a table --}}
+{{!-- Create a table to display vaccinations--}}
 <table id="vaccination-table">
 
     {{!-- Header section --}}
@@ -26,7 +26,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the vaccinationID, dogID, vaccinationType, vaccinationDate, in order --}}
         {{#each data}}
         <tr data-value ={{this.vaccinationID}}>
             <td>{{this.vaccinationID}}</td>
@@ -38,8 +38,8 @@
     </tbody>
 </table>
 
-<!-- Form to add a record to the table using AJAX -->
-<h2>Adding Vaccination Data with AJAX</h2>
+<!-- Form to add an vaccination to the table using AJAX -->
+<h2>Adding a new Vaccination Data</h2>
 <p>To add a new vaccination, please enter their information below and click 'Submit'!</p>
 <form id="add-vaccination-form-ajax">
     <label for="input-dogID">Dog Name: </label>
@@ -61,7 +61,7 @@
 </form>
 
 {{!-- Form to search by the vaccination type and date--}}
-<h2>Search Using a Standard HTML Form</h2>
+<h2>Search The Vaccnination by Type or Date</h2>
 <p>Search by vaccination type, vaccination date, Partial vaccination type are OK too!</p>
 <form id="search-vaccination-html" method="GET" action="/vaccinations">
     <!-- Search by Event Name -->
