@@ -5,7 +5,7 @@
 
 <!-- dogAtEvents.hbs -->
 <h1>Dog At Events</h1>
-<p>You can find the dogs at the certain event, add/update/delete/search the dogs at events.</p>
+<p>You can find dogs attending certain events, and add/update/delete/search the dogs at these events.</p>
 
 {{!-- Create a table to display dog at event --}}
 <table id="dogAtEvent-table">
@@ -45,7 +45,7 @@
 <form id="add-dogAtEvent-form-ajax">
     <label for="input-dogID-ajax">Dog Name: </label>
     <select name="input-dogID" id="input-dogID-ajax">
-        <option value="">Select One Dog</option>
+        <option value="">Select A Dog</option>
         {{#each dogs}}
         <option value="{{this.dogID}}">{{this.dogName}}</option>
         {{/each}}
@@ -53,7 +53,7 @@
     
     <label for="input-eventID-ajax">Event Name: </label>
     <select name="input-eventID" id="input-eventID-ajax">
-        <option value="">Select One Event</option>
+        <option value="">Select An Event</option>
         {{#each events}}
         <option value="{{this.eventID}}">{{this.eventName}}</option>
         {{/each}}
@@ -74,7 +74,7 @@
 
     <label for="update-dog">Dog Name:</label>
     <select id="update-dog">
-        <option value="">Select One Dog</option>
+        <option value="">Select A Dog</option>
         {{#each dogs}}
         <option value="{{this.dogID}}">{{this.dogName}}</option>
         {{/each}}
@@ -82,7 +82,7 @@
 
     <label for="update-eventID">Event Name:</label>
     <select id="update-eventID">
-        <option value="">Select One Event</option>
+        <option value="">Select An Event</option>
         {{#each events}}
         <option value="{{this.eventID}}">{{this.eventName}}</option>
         {{/each}}
@@ -120,7 +120,7 @@
     <div>
         <label for = "searcheventID"></label>
         <select name="eventID" id="input-eventName-ajax">
-        <option value="">Select by Event name </option>
+        <option value="">Select by Event Name </option>
         {{#each events}}
         <option value="{{this.eventID}}">{{this.eventName}}</option>
         {{/each}}

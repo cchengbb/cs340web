@@ -5,7 +5,7 @@
 
 <!-- events.hbs -->
 <h1>Events</h1>
-<p>Find out about upcoming events where you can meet our dogs in person. Manage events including adding and searching event information.</p>
+<p>Find out about upcoming events where you can meet our dogs in person. Manage events, including adding and searching event information.</p>
 
 {{!-- Create a table to display event--}}
 <table id="event-table">
@@ -47,7 +47,7 @@
     <label for="input-locationID">Event Location: </label>
     <!--input type="number" name="input-adopterID" id="input-adopterID"--> 
     <select name="input-locationID" id="input-locationID-ajax">
-        <option value="">Select One Location</option>
+        <option value="">Select A Location</option>
         {{#each locations}}
         <option value="{{this.locationID}}">{{this.address1}}, {{this.city}}, {{this.state}}</option>
         {{/each}}

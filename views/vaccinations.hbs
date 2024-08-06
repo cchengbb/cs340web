@@ -5,7 +5,7 @@
 
 <!-- vaccination.hbs -->
 <h1>Vaccinations</h1>
-<p>Detailed records of vaccinations for each dog. The page including add/search the vaccination.</p>
+<p>Detailed records of vaccinations for each dog. This page includes add/search the vaccination.</p>
 
 {{!-- Create a table to display vaccinations--}}
 <table id="vaccination-table">
@@ -39,13 +39,13 @@
 </table>
 
 <!-- Form to add an vaccination to the table using AJAX -->
-<h2>Adding a new Vaccination Data</h2>
+<h2>Adding a new Vaccination</h2>
 <p>To add a new vaccination, please enter their information below and click 'Submit'!</p>
 <form id="add-vaccination-form-ajax">
     <label for="input-dogID">Dog Name: </label>
     <!--input type="number" name="input-adopterID" id="input-adopterID"--> 
     <select name="input-dogID" id="input-dogID-ajax">
-        <option value="">Select One Dog</option>
+        <option value="">Select A Dog</option>
         {{#each dogs}}
         <option value="{{this.dogID}}">{{this.dogName}}</option>
         {{/each}}
