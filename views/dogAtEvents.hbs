@@ -95,13 +95,13 @@
 
 {{!-- Form to search by the dog name, event date --}}
 <h2>Search Dog At Event</h2>
-<p>Search by only dog name or event name, partial names are OK too!</p>
+<p>Search by dog name or event name, partial names are OK too!</p>
 <form id="search-dogAtEvent-html" method="GET" action="/dogAtEvents">
     <!-- Search by dog Name -->
     <div>
         <label for = "searchdogID"></label>
         <select name="dogID" id="input-dogID-html-search">
-        <option value="">Search by One Dog Name</option>
+        <option value="">Select by Dog Name</option>
         {{#each dogs}}
         <option value="{{this.dogID}}">{{this.dogName}}</option>
         {{/each}}
@@ -120,7 +120,7 @@
     <div>
         <label for = "searcheventID"></label>
         <select name="eventID" id="input-eventName-ajax">
-        <option value="">Search by One Event name </option>
+        <option value="">Select by Event name </option>
         {{#each events}}
         <option value="{{this.eventID}}">{{this.eventName}}</option>
         {{/each}}
