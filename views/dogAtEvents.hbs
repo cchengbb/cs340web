@@ -74,6 +74,7 @@
 
     <label for="update-dog">Dog Name:</label>
     <select id="update-dog">
+        <option value="">Select One Dog</option>
         {{#each dogs}}
         <option value="{{this.dogID}}">{{this.dogName}}</option>
         {{/each}}
@@ -81,6 +82,7 @@
 
     <label for="update-eventID">Event Name:</label>
     <select id="update-eventID">
+        <option value="">Select One Event</option>
         {{#each events}}
         <option value="{{this.eventID}}">{{this.eventName}}</option>
         {{/each}}
