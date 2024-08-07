@@ -6,7 +6,7 @@ Adapted Based on:
 Source: URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
 
-Adopter page
+Adopters page
 
 ![Adopters page](https://github.com/user-attachments/assets/db1f1310-7a13-4709-a312-c0059ee05f06)
 
