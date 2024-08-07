@@ -1,4 +1,4 @@
-Port: http://classwork.engr.oregonstate.edu:9613/
+Website URL with OSU VPN Required: http://classwork.engr.oregonstate.edu:9613/
 
 Citation for template:
 Date: 08/04/2024
