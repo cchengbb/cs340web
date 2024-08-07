@@ -19,3 +19,9 @@ Events page
 DogAtEvents page
 
 ![DogAtEvents](https://github.com/user-attachments/assets/eebdb278-00c1-4ae3-9de7-ff3d11ea4a74)
+
+Locations page
+![Locations](https://github.com/user-attachments/assets/1abc5afd-78aa-4882-b348-cff029383c47)
+
+Vaccinations page
+![Vaccinations](https://github.com/user-attachments/assets/623d0d39-62da-4eb1-b08f-499add4f9c6a)
