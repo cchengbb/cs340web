@@ -1,4 +1,4 @@
-Port: https://github.com/cchengbb/cs340web
+Port: http://classwork.engr.oregonstate.edu:9613/
 
 Citation for template:
 Date: 08/04/2024
